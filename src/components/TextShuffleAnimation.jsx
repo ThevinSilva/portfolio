@@ -5,7 +5,7 @@ import SplitText from "gsap/SplitText";
 // If not already:
 gsap.registerPlugin(SplitText);
 
-export default function TextShuffleAnimation({ children, stagger = 0.03, duration = 0.2, ease = "power1.inOut", play = false, disableHover = false }) {
+export default function TextShuffleAnimation({ children, stagger = -0.017, duration = 0.3, ease = "power1.inOut", play = false, disableHover = false }) {
     const rootRef = useRef(null);
     const tweenRef = useRef(null);
     const splitRef = useRef(null);

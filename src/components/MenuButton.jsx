@@ -15,7 +15,7 @@ export default function MenuButton({ text }) {
             const tl = gsap.timeline({ paused: true });
 
             // Animate both brackets outward simultaneously
-            tl.to(leftBracketRef.current, { x: -16, duration: 0.3 }, 0).to(rightBracketRef.current, { x: 16, duration: 0.3 }, 0);
+            tl.to(leftBracketRef.current, { x: -16, duration: 0.2, ease: "power1.inOut" }, 0).to(rightBracketRef.current, { x: 16, duration: 0.2, ease: "power1.inOut" }, 0);
 
             tweenRef.current = tl;
         },
