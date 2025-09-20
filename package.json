@@ -21,7 +21,6 @@
     "matter-js": "^0.20.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "tech-stack-icons": "^3.3.2",
     "three": "^0.180.0",
     "three-globe": "^2.44.0"
   },
