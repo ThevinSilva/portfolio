@@ -11,9 +11,13 @@ import About from "./About";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrambleTextPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
     useEffect(() => {
@@ -26,10 +30,10 @@ function App() {
 
     return (
         <div className="content" data-scroll-container>
-            <Header />
             <Hero />
+            <Header />
             <About />
-        </div>
+    </div>
     );
 }
 

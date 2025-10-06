@@ -38,7 +38,7 @@ vec3 right = normalize(cross(up, cameraDirection));
 up = normalize(cross(cameraDirection, right));
 
 // Base dot size - user dot largest, others varied
-float dotSize = isUserDot > 0.5 ? 4.0 : (mod(dotIndex, 2.0) < 1.0 ? 2.5 : 1.8);
+float dotSize = isUserDot > 0.5 ? 7.0 : (mod(dotIndex, 2.0) < 1.0 ? 2.5 : 1.8);
 
 // Pulse effect from user dot
 if (isUserDot < 0.5) {

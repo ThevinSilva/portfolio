@@ -5,7 +5,7 @@ import { useRef } from "react";
 import SplitText from "gsap/SplitText";
 import gsap from "gsap";
 
-export default function TextPopInAnimation({ children, stagger = 0.03, y = 400, duration = 1, ease = "back.out", delay = 0 }) {
+export default function TextPopInAnimation({ children, stagger = 0.05, y = 400, duration = 1, ease = "back.inOut", delay = 0, style = {} }) {
     const ref = useRef(null);
 
     useGSAP(
@@ -30,7 +30,7 @@ export default function TextPopInAnimation({ children, stagger = 0.03, y = 400, 
     );
 
     return (
-        <div ref={ref} style={{ display: "inline" }}>
+        <div ref={ref} style={{ display: "inline", ...style }}>
             {children}
         </div>
     );

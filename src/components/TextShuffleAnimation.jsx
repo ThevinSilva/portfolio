@@ -31,7 +31,7 @@ export default function TextShuffleAnimation({ children, stagger = -0.017, durat
         // 3) Apply text-shadow to each char (parent won't affect them)
         split.chars.forEach((el) => {
             el.style.textShadow = `0px ${size + 15}px 0px #ffffff`;
-        });
+    });
 
         // 4) Build a paused tween so you can control it on hover
         tweenRef.current = gsap.to(split.chars, {

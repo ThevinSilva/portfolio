@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CsharpPlain, PythonPlain, TypescriptPlain, FlaskOriginal, NumpyOriginal, PandasOriginal, MatplotlibPlain, NodejsPlain, ReactOriginal, SveltePlain, MongodbPlain, FirebasePlain, LatexOriginal, PuppeteerOriginal, ThreejsOriginal, DotnetcoreOriginal, AzuresqldatabasePlain, VisualstudioOriginal, AzuredevopsOriginal } from "devicons-react";
+import BorderAnimatedBox from "./BorderAnimation";
 
 export default function About() {
     const technologies = [
@@ -72,35 +73,38 @@ export default function About() {
 
     return (
         <div ref={containerRef} className="Technologies">
-            <div className="Grid">
+            <BorderAnimatedBox borders={{ top: true, right: false, bottom: false, left: false }} className="Grid">
                 <div className="row">
-                    <div className="item" onClick={() => setOrder(0)}>
+                    <BorderAnimatedBox className="item" borders={{ top: false, left: false, bottom: true, right: false }} onClick={() => setOrder(0)}>
                         <span>01</span>
                         <PythonPlain />
                         <p>/python</p>
-                    </div>
-                    <div className="item" onClick={() => setOrder(1)}>
+                    </BorderAnimatedBox>
+                    <BorderAnimatedBox className="item" borders={{ top: false, left: true, bottom: true, right: false }} onClick={() => setOrder(1)}>
                         <span>02</span>
                         <TypescriptPlain />
                         <p>/typescript</p>
-                    </div>
-                    <div className="item" onClick={() => setOrder(2)}>
+                    </BorderAnimatedBox>
+                    <BorderAnimatedBox className="item" borders={{ top: false, left: true, bottom: true, right: false }} onClick={() => setOrder(2)}>
                         <span>03</span>
                         <CsharpPlain />
                         <p>/C#</p>
-                    </div>
+                    </BorderAnimatedBox>
                 </div>
                 <div className="row">
-                    {Object.keys(technologies[order]).map((key) => (
-                        <div className="item">
+                    {Object.keys(technologies[order]).map((key, index) => (
+                        <BorderAnimatedBox borders={{ top: false, left: index == 0 ? false : true, bottom: false, right: false }} className="item">
+                            <span>
+                                {order + 1}|{index + 1}
+                            </span>
                             {technologies[order][key]}
                             <p>/{key}</p>
-                        </div>
+                        </BorderAnimatedBox>
                     ))}
                 </div>
 
                 <div ref={highlightRef} className="highlight" />
-            </div>
+            </BorderAnimatedBox>
         </div>
     );
 }

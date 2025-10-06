@@ -39,10 +39,11 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
     const raycaster = useRef(new THREE.Raycaster());
     const sphereGeometry = useRef(new THREE.SphereGeometry(GLOBE_RADIUS, 32, 32));
 
-    // Camera shake state
-    const baseCameraPosition = useRef(new THREE.Vector3(0, 0, 1500));
-    const shakeOffset = useRef(new THREE.Vector3());
-    const shakeVelocity = useRef(new THREE.Vector3());
+    // Camera and rotation controls
+    const targetRotation = useRef(new THREE.Euler());
+    const currentRotation = useRef(new THREE.Euler());
+    const userLocationRotation = useRef(new THREE.Euler());
+    const [isUserLocationSet, setIsUserLocationSet] = useState(false);
 
     // Load and process the map image
     useEffect(() => {
@@ -71,7 +72,30 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
         img.src = mapUrl;
     }, [mapUrl]);
 
-    // Calculate dot positions from map data - simplified to ensure it always returns positions
+    // Calculate initial rotation to center on user location
+    useEffect(() => {
+        if (userLocation && userLocation.latitude && userLocation.longitude && !isUserLocationSet) {
+            const lat = userLocation.latitude * (Math.PI / 180);
+            const lng = userLocation.longitude * (Math.PI / 180);
+
+            // Calculate rotation needed to center user location facing the camera
+            // For longitude: rotate around Y-axis to bring the longitude to the front
+            // For latitude: rotate around X-axis to bring the latitude to center height
+            userLocationRotation.current.y = -lng; // Negative because we want to rotate the globe to bring this point forward
+            userLocationRotation.current.x = lat; // Negative to bring the latitude to center (positive lat should be up, so we rotate down)
+            userLocationRotation.current.z = 0; // No roll needed
+
+            // Set initial rotation
+            targetRotation.current.copy(userLocationRotation.current);
+            currentRotation.current.copy(userLocationRotation.current);
+
+            setIsUserLocationSet(true);
+            console.log("Centered globe on user location:", userLocation.latitude, userLocation.longitude);
+            console.log("Applied rotation:", userLocationRotation.current.x, userLocationRotation.current.y, userLocationRotation.current.z);
+        }
+    }, [userLocation, isUserLocationSet]);
+
+    // Calculate dot positions from map data - with better user location positioning
     const { positions, validDotCount, userDotIndex, userPosition } = useMemo(() => {
         console.log("Calculating positions. MapData available:", !!mapData, "UserLocation:", userLocation);
 
@@ -90,6 +114,25 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
         const hasValidUserLocation = userLocation && typeof userLocation.latitude === "number" && typeof userLocation.longitude === "number" && !isNaN(userLocation.latitude) && !isNaN(userLocation.longitude);
 
         console.log("Has valid user location:", hasValidUserLocation, userLocation);
+
+        // If we have user location, calculate the exact 3D position first
+        if (hasValidUserLocation) {
+            const userLat = userLocation.latitude * (Math.PI / 180);
+            const userLng = userLocation.longitude * (Math.PI / 180);
+
+            // Convert lat/lng directly to 3D coordinates using proper spherical conversion
+            // Standard spherical coordinates: phi (polar angle from +Y), theta (azimuthal angle from +Z toward +X)
+            const phi = Math.PI / 2 - userLat; // Convert latitude to polar angle (0 to π)
+            const theta = userLng; // Longitude is already azimuthal angle (-π to π)
+
+            userPos = new THREE.Vector3();
+            userPos.setFromSphericalCoords(GLOBE_RADIUS, phi, theta);
+
+            console.log("Direct user position calculation:");
+            console.log("  Lat/Lng:", userLocation.latitude, userLocation.longitude);
+            console.log("  Phi/Theta (rad):", phi, theta);
+            console.log("  3D Position:", userPos.x, userPos.y, userPos.z);
+        }
 
         for (let i = 0; i < DOT_COUNT; i++) {
             const phi = Math.acos(-1 + (2 * i) / DOT_COUNT);
@@ -112,17 +155,20 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
 
             // Land areas (dark pixels)
             if (!(r > 10 || g > 10 || b > 10)) {
-                // Convert to lat/lng for user location matching
-                const lat = Math.asin(vector.y / GLOBE_RADIUS) * (180 / Math.PI);
-                const lng = Math.atan2(vector.x, vector.z) * (180 / Math.PI);
-
-                // Find closest dot to user location if we have valid location
-                if (hasValidUserLocation) {
-                    const distance = Math.sqrt(Math.pow(lat - userLocation.latitude, 2) + Math.pow(lng - userLocation.longitude, 2));
+                // Find closest dot to calculated user position if we have valid location
+                if (hasValidUserLocation && userPos) {
+                    const distance = vector.distanceTo(userPos);
                     if (distance < closestDistance) {
                         closestDistance = distance;
                         closestIndex = positions.length;
-                        userPos = vector.clone();
+
+                        // Debug info for the closest match
+                        const lat = Math.asin(vector.y / GLOBE_RADIUS) * (180 / Math.PI);
+                        const lng = Math.atan2(vector.x, vector.z) * (180 / Math.PI);
+                        console.log("New closest dot found:");
+                        console.log("  Distance:", distance);
+                        console.log("  Dot lat/lng:", lat, lng);
+                        console.log("  Dot 3D pos:", vector.x, vector.y, vector.z);
                     }
                 }
 
@@ -130,12 +176,16 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
             }
         }
 
-        console.log("Calculated positions:", positions.length);
+        console.log("Final user dot selection:");
+        console.log("  Closest distance:", closestDistance);
+        console.log("  User dot index:", closestIndex);
+        console.log("  User position:", userPos);
+
         return {
             positions,
             validDotCount: positions.length,
             userDotIndex: closestIndex,
-            userPosition: userPos,
+            userPosition: userPos, // Use the calculated exact position
         };
     }, [mapData, userLocation]);
 
@@ -146,14 +196,14 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
         const textData = [
             {
                 text: `${userLocation.city || "Unknown"}, ${userLocation.countryName || "Unknown"}`,
-                color: "#ffffff",
+                color: "#ff0000",
                 size: 100,
                 offset: 40,
             },
             {
                 text: userLocation.ip || "N/A",
-                color: "#ef0915",
-                size: 40,
+                color: "#ffffff",
+                size: 60,
                 offset: 0,
             },
         ];
@@ -193,11 +243,8 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
 
     // Shader material for the dots
     const shaderMaterial = useMemo(() => {
-        // console.log("Creating shader material. Shaders available:", !!shaders);
-
         if (!shaders) {
             console.log("No shaders available, creating basic material");
-            // Fallback to basic material if shaders aren't loaded
             return new THREE.MeshBasicMaterial({
                 color: 0x00ff00,
                 transparent: true,
@@ -250,58 +297,34 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
         }
     }, [positions, validDotCount, userDotIndex]);
 
-    // Enhanced animation loop with improved camera shake
+    // Animation loop with mouse-based rotation controls
     useFrame(({ camera, clock }, delta) => {
         if (meshRef.current && shaderMaterial) {
-            // Slower rotation
-            meshRef.current.rotation.y += delta * 0.15;
-
-            // ENHANCED CAMERA SHAKE based on mouse velocity
             const time = clock.elapsedTime;
-            const shakeIntensity = Math.min(mouseVelocity * 10.0, 15.0);
 
-            if (shakeIntensity > 0.05) {
-                // Multiple shake frequencies for more realistic effect
-                const highFreq = Math.sin(time * 45 + mouseVelocity * 15) * shakeIntensity * 0.8;
-                const medFreq = Math.sin(time * 25 + mouseVelocity * 8) * shakeIntensity * 0.6;
-                const lowFreq = Math.sin(time * 12 + mouseVelocity * 4) * shakeIntensity * 0.4;
+            // Mouse-based rotation controls
+            if (isUserLocationSet) {
+                // Define sensitivity for mouse movement
+                const mouseSensitivity = 0.3;
 
-                // Combine frequencies for complex shake pattern
-                const shakeX = (highFreq + medFreq * 0.7 + lowFreq * 0.5) * 0.8;
-                const shakeY = (Math.cos(time * 38 + mouseVelocity * 12) * shakeIntensity * 0.6 + Math.cos(time * 22 + mouseVelocity * 6) * shakeIntensity * 0.4) * 0.8;
-                const shakeZ = (Math.sin(time * 33 + mouseVelocity * 10) * shakeIntensity * 0.3 + Math.sin(time * 18 + mouseVelocity * 5) * shakeIntensity * 0.2) * 0.8;
+                // Calculate target rotation based on mouse position relative to user location center
+                const mouseInfluenceX = mousePosition.x * mouseSensitivity;
+                const mouseInfluenceY = mousePosition.y * mouseSensitivity;
 
-                // Apply physics-based shake with momentum
-                const dampening = 0.92;
-                const shakeForce = 0.15;
+                // Update target rotation: start from user location rotation and add mouse influence
+                targetRotation.current.y = userLocationRotation.current.y + mouseInfluenceX;
+                targetRotation.current.x = userLocationRotation.current.x + mouseInfluenceY;
 
-                shakeVelocity.current.x += (shakeX - shakeOffset.current.x) * shakeForce;
-                shakeVelocity.current.y += (shakeY - shakeOffset.current.y) * shakeForce;
-                shakeVelocity.current.z += (shakeZ - shakeOffset.current.z) * shakeForce;
+                // Smooth interpolation to target rotation
+                const rotationSpeed = 3.0 * delta;
+                currentRotation.current.x = THREE.MathUtils.lerp(currentRotation.current.x, targetRotation.current.x, rotationSpeed);
+                currentRotation.current.y = THREE.MathUtils.lerp(currentRotation.current.y, targetRotation.current.y, rotationSpeed);
 
-                shakeVelocity.current.multiplyScalar(dampening);
-                shakeOffset.current.add(shakeVelocity.current);
-
-                // Apply shake to camera
-                camera.position.x = baseCameraPosition.current.x + shakeOffset.current.x;
-                camera.position.y = baseCameraPosition.current.y + shakeOffset.current.y;
-                camera.position.z = baseCameraPosition.current.z + shakeOffset.current.z;
-
-                // Add rotational shake for more dramatic effect
-                const rotShake = shakeIntensity * 0.002;
-                camera.rotation.x += Math.sin(time * 40 + mouseVelocity * 10) * rotShake;
-                camera.rotation.y += Math.cos(time * 35 + mouseVelocity * 8) * rotShake;
-                camera.rotation.z += Math.sin(time * 30 + mouseVelocity * 12) * rotShake * 0.5;
+                // Apply the rotation to the mesh
+                meshRef.current.rotation.copy(currentRotation.current);
             } else {
-                // Smooth return to base position when no shake
-                const returnSpeed = 0.08;
-                shakeOffset.current.lerp(new THREE.Vector3(0, 0, 0), returnSpeed);
-                shakeVelocity.current.multiplyScalar(0.9);
-
-                camera.position.lerp(baseCameraPosition.current, returnSpeed);
-                camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, 0, returnSpeed);
-                camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, 0, returnSpeed);
-                camera.rotation.z = THREE.MathUtils.lerp(camera.rotation.z, 0, returnSpeed);
+                // Fallback: slow automatic rotation if user location not set
+                meshRef.current.rotation.y += delta * 0.15;
             }
 
             // Update shader uniforms only if using shader material
@@ -326,10 +349,13 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
             }
         }
 
-        // Update text positioning with shake compensation
+        // Update text positioning with current globe rotation
         if (userPosition && textMeshRefs.current.length > 0) {
             const rotatedUserPosition = userPosition.clone();
-            rotatedUserPosition.applyAxisAngle(new THREE.Vector3(0, 1, 0), meshRef.current.rotation.y);
+            if (meshRef.current) {
+                rotatedUserPosition.applyAxisAngle(new THREE.Vector3(0, 1, 0), meshRef.current.rotation.y);
+                rotatedUserPosition.applyAxisAngle(new THREE.Vector3(1, 0, 0), meshRef.current.rotation.x);
+            }
 
             textMeshRefs.current.forEach((textMesh, i) => {
                 if (textMesh && textElements[i]) {
@@ -345,8 +371,6 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
             });
         }
     });
-
-    // console.log("Render check - MapData:", !!mapData, "ShaderMaterial:", !!shaderMaterial, "Positions:", positions.length, "IsMapLoaded:", isMapLoaded);
 
     // Show loading state or render globe
     if (!isMapLoaded) {
@@ -374,7 +398,7 @@ function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
     }
 
     return (
-        <group rotation={[0.6, 0, 0]}>
+        <group rotation={[0, 0, 0]}>
             <instancedMesh ref={meshRef} args={[null, null, validDotCount]} material={shaderMaterial}>
                 <planeGeometry args={[2, 2]} />
             </instancedMesh>

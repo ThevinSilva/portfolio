@@ -8,6 +8,8 @@ $light-bg: #ffffff;
 $light-button-bg: #f9f9f9;
 $text-light: rgba(255, 255, 255, 0.87);
 $text-dark: #213547;
+$background-color: #1a1a1a;
+
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Antonio&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @font-face {
@@ -17,6 +19,12 @@ $text-dark: #213547;
     font-weight: normal;
 }
 
+@font-face {
+    font-family: "Monocraft";
+    src: local("Monocraft-nerd-fonts-patched"),
+        url("./fonts/Monocraft-nerd-fonts-patched.ttc") format("trueType");
+    font-weight: normal;
+}
 
 :root {
     font-size: 16px;
@@ -51,7 +59,7 @@ menu {
     justify-content: space-between;
     width: 100%;
     font-family: "space mono", monospace;
-    font-size: 2rem;
+    font-size: 1rem;
     overflow: visible;
 
     h1 {
@@ -162,180 +170,400 @@ menu {
 
 
 .About {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
 
     .InfoGrid {
         position: relative;
         display: flex;
         flex-direction: row;
-        height: 70svh;
+        height: 80svh;
         width: 100%;
         margin: 0 auto;
+        overflow: hidden;
         font-family: "space mono", monospace;
+        border: none;
 
-        // about me + 
-        div {
+        .neofetch {
             position: relative;
             display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .image {
-            font-size: 0.5rem;
-
-            pre {
-                white-space: pre;
-                text-align: center;
-                unicode-bidi: isolate;
-                font-family: monospace;
-                font-size: 12px;
-                line-height: 12px;
-                letter-spacing: unset;
-                transform: unset;
-                overflow-y: hidden;
-            }
-        }
-
-        .attributes {
-            font-size: 2em;
-
-            * {
-                border: none;
-                display: inline;
-            }
-
-            h1 {
-
-                font-size: inherit;
-            }
-
-
-        }
-
-        :first-child {
-            border: none;
-            margin: 0;
-        }
-    }
-
-    .Technologies {
-        position: relative;
-        padding: 10em;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-
-        .Grid {
-            position: relative;
-            margin: 0 auto;
-            width: 90%;
-            height: 60%;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgb(255, 255, 255, 0.2);
-
-            .row,
-            .item {
-                flex: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                color: white;
-
-            }
-
-            .row:nth-child(1) {
-                border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.2);
-            }
-
-            .row {
-                .item {
-                    svg {
-                        position: absolute;
-                        z-index: 2;
-                        filter: brightness(0) invert(1);
-                        width: 12em;
-                        transform: scale(5);
-                    }
-
-
-                    span {
-                        position: relative;
-                        left: -35%;
-                        top: -40%;
-                        letter-spacing: 2px;
-                        z-index: 2;
-                        font-family: "LCD14";
-                        color: rgb(80, 80, 80);
-                    }
-
-                    p {
-                        position: relative;
-                        left: 35%;
-                        top: 40%;
-                        letter-spacing: 2px;
-                        z-index: 2;
-                        text-transform: uppercase;
-                        font-weight: 500;
-                        // Need some kinda monospaced font
-                        font-family: "Antonio", sans-serif;
-                        color: rgb(80, 80, 80);
-                    }
-                }
-
-                // .item:hover svg {
-                //     filter: brightness(0) saturate(100%);
-                // }
-
-
-
-                .item:not(:last-child) {
-                    border-right: 1px solid rgba($color: #ffffff, $alpha: 0.2);
-                }
-            }
-
-            .highlight {
-                position: absolute;
-                top: 0;
-                left: 0;
-                background-color: #fff;
-                pointer-events: none;
-                transition: all 0.2s ease;
-            }
-
-        }
-
-
-
-        @media (max-width: 900px) {
+            flex-direction: row;
+            overflow: hidden;
+            font-family: "space mono", monospace;
             height: 100%;
-            min-height: 100svh;
-            padding: 25vh 0;
+            width: 65%;
 
-            .Grid {
-                height: max-content;
+            .thing {
+                position: relative;
+                height: 100%;
+                width: 55%;
+                display: flex;
+                flex-flow: column;
+                height: 100%;
 
-                .row {
+                .image {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+
+                }
+
+                .links {
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    height: 25%;
+                }
+
+            }
+
+            .attributes {
+                position: relative;
+                font-size: 1rem;
+                display: inline;
+                display: flex;
+                flex-direction: column;
+                width: 45%;
+
+
+                .header,
+                .divider {
+                    display: flex;
+                    flex-direction: row !important;
+                    font-size: 2rem;
+
+                    >div {
+                        display: flex !important;
+                        flex-direction: row !important;
+
+                        div {
+                            width: fit-content;
+                        }
+                    }
+
+                }
+
+
+
+
+                .field {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding: 0.5% 2%;
+
+                }
+
+                .scrambled {
+                    opacity: 0;
+                    display: inline;
+                    font-weight: 100;
+                    color: #ddd;
+                }
+
+
+                /* black background pink text */
+                .old {
+                    color: rgb(0, 0, 0);
+                    background: rgb(203, 32, 32);
+                }
+
+                /* pink background white text */
+                .new {
+                    color: white;
+                }
+
+            }
+
+        }
+
+        .right {
+            position: relative;
+            height: 100%;
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .map {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+
+                svg {
+                    position: absolute;
+                    height: fit-content;
+                }
+            }
+
+            .lang {
+                height: 100%;
+                width: 100%;
+            }
+
+            .Technologies {
+                position: relative;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 0px;
+
+
+                .Grid {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
                     flex-direction: column;
 
+                    .row,
                     .item {
-                        width: 100%;
-                        padding: 60px;
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        color: white;
+
                     }
 
-                    .item:not(:last-child) {
-                        border-right: none;
+                    .row:nth-child(1) {
                         border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.2);
                     }
+
+                    .row {
+                        .item {
+                            position: relative;
+                            display: flex;
+                            width: 100%;
+                            height: 100%;
+                            align-items: center;
+
+
+                            svg {
+                                position: relative;
+                                z-index: 2;
+                                filter: brightness(0) invert(1);
+                                transform: scale(2);
+                                flex: 1 1 0;
+                                min-width: 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                            }
+
+
+                            span {
+                                position: relative;
+                                display: flex;
+                                flex-direction: column;
+                                height: 100%;
+                                letter-spacing: 2px;
+                                z-index: 2;
+                                font-family: "LCD14";
+                                font-size: 1rem;
+                                color: rgb(80, 80, 80);
+                                flex: 1 1 0;
+                                min-width: 0;
+                            }
+
+                            p {
+                                position: relative;
+                                display: flex;
+                                height: 100%;
+                                flex-direction: column-reverse;
+                                align-items: center;
+                                letter-spacing: 0.25em;
+                                font-size: 0.5rem;
+                                z-index: 2;
+                                text-transform: uppercase;
+                                font-weight: 500;
+                                font-family: "Antonio", sans-serif;
+                                color: rgb(80, 80, 80);
+                                flex: 1 1 0;
+                                min-width: 0;
+                                direction: rtl;
+                                float: right;
+                            }
+                        }
+
+                        // .item:hover svg {
+                        //     filter: brightness(0) saturate(100%);
+                        // }
+
+
+
+
+                    }
+
+                    .highlight {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-color: #fff;
+                        pointer-events: none;
+                        transition: all 0.2s ease;
+                    }
+
                 }
 
 
+
+                @media (max-width: 900px) {
+                    height: 100%;
+                    min-height: 100svh;
+                    padding: 25vh 0;
+
+                    .Grid {
+                        height: max-content;
+
+                        .row {
+                            flex-direction: column;
+
+                            .item {
+                                width: 100%;
+                                padding: 60px;
+                            }
+
+                            .item:not(:last-child) {
+                                border-right: none;
+                                border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.2);
+                            }
+                        }
+
+
+                    }
+
+
+                }
             }
-
-
         }
     }
+
+
+
+
+    // about me + 
+
+
+
+
+
+
+}
+
+
+
+.pixelated-image-card {
+    color: var(--color-primary, #fff);
+    width: 100%;
+    max-width: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+.pixelated-image-card__default,
+.pixelated-image-card__active,
+.pixelated-image-card__pixels {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pixelated-image-card__active {
+    z-index: 2;
+}
+
+.pixelated-image-card__pixels {
+    pointer-events: none;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.pixelated-image-card__pixel {
+    display: none;
+    position: absolute;
+}
+
+.custom-pixel-card {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.custom-pixel-card .pixelated-image-card__default,
+.custom-pixel-card .pixelated-image-card__active,
+.custom-pixel-card .pixelated-image-card__pixels {
+    border-radius: inherit;
+}
+
+.distortion-container {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    canvas {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+
+.linkButton {
+    position: relative;
+    font-family: 'Monocraft';
+    letter-spacing: 0.5rem;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 100;
+    background-color: $background-color;
+
+    .hn-arrow-container {
+        position: absolute;
+        top: 2%;
+        right: 2%;
+        width: 2rem;
+        height: 2rem;
+        overflow: hidden;
+    }
+
+    div.hn-arrow-up {
+        position: relative;
+        transform: rotate(45deg);
+        width: 2rem;
+        // No overflow hidden here - it's on the parent container
+    }
+}
+
+
+
+.sectionHeader {
+    position: absolute;
+    font-family: 'Monocraft';
+    z-index: 90;
+    color: $background-color;
+    background-color: white;
+    padding: 2%;
+    letter-spacing: 1rem;
+    width: fit-content;
+    height: fit-content;
+    font-size: 2rem;
 }
