@@ -7,70 +7,65 @@ export default function Work() {
     const data = [
         { name: "Kaizen Records", order: 1 },
         { name: "SynTQ", order: 2 },
-        { name: "KennyS", order: 3 },
+        { name: "BDSS", order: 3 },
         { name: "idk", order: 4 },
         { name: "a", order: 5 },
         { name: "b", order: 6 },
     ];
     const [index, setIndex] = useState(0);
-    const [visible, setVisible] = useState(data.slice(0, 4));
-    const workRef = useRef(null);
+    const [visible, setVisible] = useState(data.slice(0, 5));
+    const carouselRef = useRef(null);
 
     useGSAP(
         () => {
             if (index === 0) return;
-            const items = workRef.current.querySelectorAll("div");
+            const items = carouselRef.current.querySelectorAll("div");
             const tl = gsap.timeline({
                 onComplete: function () {
                     this.time(0).kill();
                     setVisible(Array.from({ length: visible.length }, (_, i) => data[(index + i) % data.length]));
                 },
             });
-            // remove the first item
-            console.log(workRef.current.offsetWidth);
+            const currPos = index % data.length;
+            const prevPos = visible[0].order - 1;
+            const step = (((currPos - prevPos) % data.length) + data.length) % data.length;
+            console.log("seperation");
+            console.log(index % data.length);
+            console.log(visible[0].order - 1);
+            console.log(step);
+            const offset = -(carouselRef.current.offsetWidth / 5) * step;
 
-            // move up second and third item and fourth (invisible item)
-            tl.to(
-                items[1],
-                {
-                    x: -(workRef.current.offsetWidth / 8),
-                    duration: 0.2,
-                },
-                0
-            );
-            tl.to(
-                items[2],
-                {
-                    x: -(workRef.current.offsetWidth / 8),
-                    duration: 0.2,
-                },
-                0
-            );
-
-            tl.to(
-                items[3],
-                {
-                    x: -(workRef.current.offsetWidth / 8),
-                    duration: 0.2,
-                },
-                0
-            );
+            for (let i = 0; i <= 5; i++) {
+                tl.to(
+                    items[i],
+                    {
+                        x: offset,
+                        duration: 0.7,
+                        ease: "power3.out",
+                    },
+                    0
+                );
+            }
         },
-        { scope: workRef, dependencies: [index] }
+        { scope: carouselRef, dependencies: [index] }
     );
 
     return (
-        <>
-            {index}
-            {visible.map((x) => x.name + "       |    ")}
-            <div ref={workRef} className="carousel">
+        <div className="work">
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column"></div>
+            <div ref={carouselRef} className="carousel">
                 {visible.map((x, i) => (
-                    <div onClick={() => setIndex(index + i)}>
+                    <div className="column" onClick={() => setIndex(index + i)}>
                         <span>{x.name}</span>
                         <span>{x.order}</span>
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 }

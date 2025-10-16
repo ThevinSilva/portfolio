@@ -165,6 +165,7 @@ menu {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow: clip;
 
 }
 
@@ -455,14 +456,29 @@ menu {
 
 }
 
-.carousel {
-    height: 70vh;
+.work {
+    display: flex;
+    flex-direction: row;
+    width: 125%;
 
-    >div {
-        display: inline-block;
+    .column {
         height: 100%;
         width: 12.5%;
         border: solid 1px;
+        height: 70vh;
+        opacity: 0.5;
+
+    }
+
+    .carousel {
+        display: flex;
+        width: 62.5%;
+
+        .column {
+            opacity: 1;
+            width: 100%;
+
+        }
 
     }
 
