@@ -26,6 +26,58 @@ $background-color: #1a1a1a;
     font-weight: normal;
 }
 
+@font-face {
+    font-family: "KHInterferenceTRIAL";
+    src: local("KHInterferenceTRIAL-Regular"),
+        url("./fonts/KHInterferenceTRIAL-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "KHInterferenceTRIAL";
+    src: local("KHInterferenceTRIAL-Light"),
+        url("./fonts/KHInterferenceTRIAL-Light.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "KHInterferenceTRIAL";
+    src: local("KHInterferenceTRIAL-Bold"),
+        url("./fonts/KHInterferenceTRIAL-Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "NuCaloric";
+    src: local("NuCaIonic"),
+        url("./fonts/NuCaloric.otf") format("opentype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Hitobito";
+    src: local("Hitobito"),
+        url("./fonts/Hitobito.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "FaytePixelTest";
+    src: local("FaytePixelTest-Hard"),
+        url("./fonts/FaytePixelTest-Hard.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     font-size: 16px;
     padding: 0;
@@ -399,8 +451,6 @@ menu {
                         // }
 
 
-
-
                     }
 
                     .highlight {
@@ -446,14 +496,6 @@ menu {
             }
         }
     }
-
-
-
-
-    // about me + 
-
-
-
 }
 
 .work {
@@ -462,22 +504,37 @@ menu {
     width: 125%;
 
     .column {
+        display: flex;
+        // flex-direction: column;
         height: 100%;
         width: 12.5%;
         border: solid 1px;
-        height: 70vh;
+        height: 100svh;
         opacity: 0.5;
+        align-items: center;
+
+        h1 {
+            font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
+            font-weight: 700;
+            margin-left: 5%;
+            font-size: 2rem;
+        }
+
+        span {
+            font-family: "Hitobito", system-ui, sans-serif;
+            font-size: 2rem;
+        }
 
     }
 
     .carousel {
         display: flex;
         width: 62.5%;
+        overflow: clip;
 
         .column {
             opacity: 1;
             width: 100%;
-
         }
 
     }
