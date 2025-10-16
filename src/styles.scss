@@ -453,8 +453,18 @@ menu {
 
 
 
+}
 
+.carousel {
+    height: 70vh;
 
+    >div {
+        display: inline-block;
+        height: 100%;
+        width: 12.5%;
+        border: solid 1px;
+
+    }
 
 }
 

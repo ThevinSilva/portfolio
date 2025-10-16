@@ -6,6 +6,8 @@ import Header from "./Header";
 // Sections
 import Hero from "./Hero";
 import About from "./About";
+import Work from "./Work";
+
 
 // gsap + plugins
 import gsap from "gsap";
@@ -33,6 +35,7 @@ function App() {
             <Hero />
             <Header />
             <About />
+            <Work/>
     </div>
     );
 }
