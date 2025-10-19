@@ -61,6 +61,13 @@ $background-color: #1a1a1a;
 }
 
 @font-face {
+    font-family: "NuCoreCondensed";
+    src: local("NuCaIonic"),
+        url("./fonts/NuCoreCondensed.otf") format("opentype");
+    font-style: normal;
+}
+
+@font-face {
     font-family: "Hitobito";
     src: local("Hitobito"),
         url("./fonts/Hitobito.otf") format("opentype");
@@ -98,6 +105,7 @@ button:focus {
 }
 
 body {
+    overflow: clip;
     background: #1a1a1a;
     color: #fff;
 }
@@ -498,44 +506,166 @@ menu {
     }
 }
 
+
+.linkButton {
+    position: relative;
+    font-family: "NuCoreCondensed";
+    letter-spacing: 0.5rem;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 100;
+    background-color: $background-color;
+    height: 100%;
+    margin-right: 5%;
+
+    .hn-arrow-container {
+        position: absolute;
+        right: 2%;
+        width: 2rem;
+        height: 2rem;
+        overflow: hidden;
+    }
+
+    div.hn-arrow-up {
+        position: absolute;
+        transform: rotate(45deg);
+        width: 2rem;
+        // No overflow hidden here - it's on the parent container
+    }
+}
+
 .work {
     display: flex;
     flex-direction: row;
-    width: 125%;
+    width: 100%;
+    overflow: clip;
+    border: solid 1px;
 
-    .column {
+    .content {
+        justify-content: flex-end;
+        flex-direction: column;
+        position: absolute;
         display: flex;
-        // flex-direction: column;
-        height: 100%;
-        width: 12.5%;
-        border: solid 1px;
-        height: 100svh;
-        opacity: 0.5;
-        align-items: center;
+        width: 45%;
+        z-index: 6;
+        left: 2%;
+        margin-top: 25%;
+        height: 50%;
+
 
         h1 {
             font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
             font-weight: 700;
-            margin-left: 5%;
-            font-size: 2rem;
+            font-size: 3rem;
+            padding: 0;
+            margin: 0;
+
         }
 
-        span {
-            font-family: "Hitobito", system-ui, sans-serif;
-            font-size: 2rem;
+        p {
+            padding: 0;
+            margin: 0;
+            font-family: "space mono", monospace;
+            font-weight: 200;
+            font-size: 1.2rem;
         }
+
+        .footer {
+            position: relative;
+            display: flex;
+            height: 15%;
+            width: 100%;
+        }
+    }
+
+    .column {
+        height: 100%;
+        width: 12.5%;
+        height: 100svh;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
+    .grid {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
 
     }
 
+    .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: red;
+        width: 0%;
+        z-index: 0;
+        overflow: clip;
+    }
+
     .carousel {
+        position: absolute;
         display: flex;
         width: 62.5%;
+        left: 62.5%;
         overflow: clip;
 
         .column {
+            position: relative;
             opacity: 1;
-            width: 100%;
+            width: 25%;
+            z-index: 10;
+
+            .background {
+                position: absolute;
+                background: red;
+                width: 100%;
+                height: 200%;
+                z-index: 1;
+            }
+
+            .columnContent {
+                justify-content: space-between;
+                flex-direction: column;
+                align-items: flex-end;
+                position: absolute;
+                display: flex;
+                height: 50%;
+                width: 100%;
+                top: 50%;
+
+
+                h1 {
+                    font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
+                    font-weight: 300;
+                    font-size: 1.5rem;
+                    text-align: right;
+                    z-index: 4;
+                    margin-right: 10%;
+                }
+
+                span {
+                    font-family: "NuCoreCondensed", system-ui, sans-serif;
+                    font-size: 3rem;
+                    z-index: 4;
+                    margin-right: 10%;
+                    margin-bottom: 10%;
+                }
+            }
+
+
         }
+
+        .column:nth-child(3) {
+            z-index: 2;
+        }
+
+
 
     }
 
@@ -605,37 +735,6 @@ menu {
         object-fit: contain;
     }
 }
-
-
-.linkButton {
-    position: relative;
-    font-family: 'Monocraft';
-    letter-spacing: 0.5rem;
-    font-size: 2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    z-index: 100;
-    background-color: $background-color;
-
-    .hn-arrow-container {
-        position: absolute;
-        top: 2%;
-        right: 2%;
-        width: 2rem;
-        height: 2rem;
-        overflow: hidden;
-    }
-
-    div.hn-arrow-up {
-        position: relative;
-        transform: rotate(45deg);
-        width: 2rem;
-        // No overflow hidden here - it's on the parent container
-    }
-}
-
 
 
 .sectionHeader {

@@ -84,35 +84,26 @@ function InfoGrid() {
                             <DynamicImage inView={inView} />
                             <SectionHeader>01//About</SectionHeader>
                         </div>
-                        <BorderAnimatedBox className="links">
-                            <LinkButton style={{ width: "50%", height: "100%" }} borders={{ top: true, right: false, bottom: true, left: true }}>
-                                GITHUB
-                            </LinkButton>
-                            <LinkButton style={{ width: "50%", height: "100%" }} borders={{ top: true, right: false, bottom: true, left: true }}>
-                                LINKEDIN
-                            </LinkButton>
+                        <BorderAnimatedBox className="attributes" ref={attributeRef} data-scroll data-scroll-call="AboutInView" borders={{ top: false, right: false, bottom: false, left: true }}>
+                            <span className="header">
+                                {inView && (
+                                    <TextPopInAnimation delay={0.4} ease={"power4.out"} duration={1}>
+                                        thevin<span className="accent">@</span>silva
+                                    </TextPopInAnimation>
+                                )}
+                            </span>
+                            {inView && (
+                                <TextTypeWriterAnimation duration={1} ease="power4.out">
+                                    <span className="divider">{Array(20).fill(">").join(" ")}</span>
+                                </TextTypeWriterAnimation>
+                            )}
+                            {information.fields.map(({ key, value }) => (
+                                <div className="field">
+                                    <span className="reveal accent">{key}: </span> {key == "Uptime" ? <Age /> : <span className="scrambled">{value}</span>}
+                                </div>
+                            ))}
                         </BorderAnimatedBox>
                     </div>
-
-                    <BorderAnimatedBox className="attributes" ref={attributeRef} data-scroll data-scroll-call="AboutInView" borders={{ top: false, right: false, bottom: false, left: true }}>
-                        <span className="header">
-                            {inView && (
-                                <TextPopInAnimation delay={0.4} ease={"power4.out"} duration={1}>
-                                    thevin<span className="accent">@</span>silva
-                                </TextPopInAnimation>
-                            )}
-                        </span>
-                        {inView && (
-                            <TextTypeWriterAnimation duration={1} ease="power4.out">
-                                <span className="divider">{Array(20).fill(">").join(" ")}</span>
-                            </TextTypeWriterAnimation>
-                        )}
-                        {information.fields.map(({ key, value }) => (
-                            <div className="field">
-                                <span className="reveal accent">{key}: </span> {key == "Uptime" ? <Age /> : <span className="scrambled">{value}</span>}
-                            </div>
-                        ))}
-                    </BorderAnimatedBox>
                 </BorderAnimatedBox>
                 <BorderAnimatedBox className="right" borders={{ top: false, right: false, bottom: false, left: false }}>
                     <LocationWorldMap />
