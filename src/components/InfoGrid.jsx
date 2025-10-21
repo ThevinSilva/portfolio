@@ -7,7 +7,6 @@ import DynamicImage from "./DynamicImage";
 import TechnologyGrid from "./TechnologyGrid";
 import BorderAnimatedBox from "./BorderAnimation";
 import Age from "./Age";
-import LinkButton from "./LinkButton";
 import LocationWorldMap from "./LocationWorldMap";
 import LangDistribution from "./LangDistribution";
 import SectionHeader from "./SectionHeader";
@@ -65,8 +64,6 @@ function InfoGrid() {
             { key: "Host", value: "Thevin Silva " },
             { key: "Uptime", value: "21" },
             { key: "Shell", value: "English // Italian // Sinhala" },
-            { key: "Editor", value: "Neovim // Vscode // Jupyter" },
-            { key: "Packages", value: " MatLab // Rstudio // Linux // Git" },
             { key: "Education", value: "Bsc Data Science @ Uni of Bristol" },
             { key: "Experience", value: ".NET Developer @ SciY/optimal-tech" },
             { key: "Disk", value: "Anime // Video games // Projects" },
@@ -78,11 +75,13 @@ function InfoGrid() {
         <>
             <div className="header"></div>
             <div className="InfoGrid" data-scroll-section>
-                <BorderAnimatedBox className="neofetch" borders={{ top: false, right: true, bottom: false, left: false }}>
+                <BorderAnimatedBox className="left">
                     <div className="thing">
                         <div className="image">
                             <DynamicImage inView={inView} />
-                            <SectionHeader>01//About</SectionHeader>
+                            <SectionHeader>
+                                01 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>About
+                            </SectionHeader>
                         </div>
                         <BorderAnimatedBox className="attributes" ref={attributeRef} data-scroll data-scroll-call="AboutInView" borders={{ top: false, right: false, bottom: false, left: true }}>
                             <span className="header">
@@ -105,12 +104,12 @@ function InfoGrid() {
                         </BorderAnimatedBox>
                     </div>
                 </BorderAnimatedBox>
-                <BorderAnimatedBox className="right" borders={{ top: false, right: false, bottom: false, left: false }}>
+                <div></div>
+                <BorderAnimatedBox className="right">
                     <LocationWorldMap />
                     <LangDistribution />
                     <TechnologyGrid />
                 </BorderAnimatedBox>
-                <div className="footer"></div>
             </div>
         </>
     );

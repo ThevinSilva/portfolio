@@ -1,5 +1,6 @@
 import BorderAnimatedBox from "./components/BorderAnimation";
 import { useRef, useState, useLayoutEffect } from "react";
+import Experience from "./components/Experience";
 import LinkButton from "./components/LinkButton";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -72,6 +73,7 @@ export default function Work() {
             order: 1,
             description: `Simple landing page for indie record label. Built a 2D side-scrolling game featuring a Firebase-powered scoreboard to track and display global player rankings. Dynamic animations powered by Motion + React`,
             date: `2023`,
+            src: "KaizenRecords.mp4",
         },
         {
             name: "SynTQ",
@@ -80,31 +82,36 @@ export default function Work() {
             Maintained Selenium + SpecFlow scenarios for the WPF app increasing coverage of high-risk user flows and catching recurring issues earlier.
             Created PRs under branch policies, responded to senior code reviews, read pipeline logs/test reports, and re-ran/triaged failures.`,
             date: `2025`,
-        },
-        {
-            name: "BDSS",
-            order: 3,
-            description: `Develop workshops and training sessions on various data science topics, ensuring content is engaging, informative, and relevant to the needs and interests of BDSS members. 
-            Designed Society Landing Page`,
-            date: `2024`,
-        },
-        {
-            name: "KennyS",
-            order: 4,
-            description: `Built an Electron App that scrapes and trades in-game items using Google's Puppeteer Library written in TypeScript.
-            Implemented CI/CD pipeline through a series of unit tests made to ensure quality when pushing new releases.`,
-            date: `2022`,
+            src: "SynTQ.mp4",
         },
         {
             name: "Log Horizon",
-            order: 5,
+            order: 3,
             description: `Developed a social networking website with real-time forum threads and chatting.
-            Single page front-end written using React.js with a Back-End Server running on Node.js. 
+            Single page front-end written using React.js with a Back-End Server running on Node.js.
             REST API & Web Socket technology allows for real-time dynamic chatting and forum posts.
             `,
             date: `2020`,
+            src: "LogHorizon.mp4",
+        },
+        {
+            name: "BDSS",
+            order: 4,
+            description: `Develop workshops and training sessions on various data science topics, ensuring content is engaging, informative, and relevant to the needs and interests of BDSS members.
+            Designed Society Landing Page`,
+            date: `2024`,
+            src: "KaizenRecords.mp4",
+        },
+        {
+            name: "KennyS",
+            order: 5,
+            description: `Built an Electron App that scrapes and trades in-game items using Google's Puppeteer Library written in TypeScript.
+            Implemented CI/CD pipeline through a series of unit tests made to ensure quality when pushing new releases.`,
+            date: `2022`,
+            src: "SynTQ.mp4",
         },
     ];
+
     const [visible, setVisible] = useState(data.slice(0, 5));
     const [previousIndex, setPreviousIndex] = useState(0);
     const [content, setContent] = useState(visible[0]);
@@ -139,7 +146,7 @@ export default function Work() {
             gsap.to(items, {
                 x: 0,
                 duration: 0.5,
-                stagger: 0.15,
+                stagger: 0.25,
                 ease: "power3.out",
             });
 
@@ -152,7 +159,7 @@ export default function Work() {
                 {
                     x: "-100%",
                     width: "0%",
-                    duration: 1.2,
+                    duration: 2,
                     ease: "sine.inOut",
                     onComplete: () => {
                         gsap.to(contentRef.current, { opacity: 1 });
@@ -160,8 +167,11 @@ export default function Work() {
                 }
             );
 
+            setTimeout(() => {
+                setContent(data[increment % data.length]);
+            }, 1000);
+
             setPreviousIndex(increment);
-            setContent(data[increment % data.length]);
 
             return () => {};
         },
@@ -197,6 +207,14 @@ export default function Work() {
                 <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
                 <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
             </div>
+            <Experience
+                src={content.src}
+                brightness={0.5} // <1.0 is darker
+                warmth={0} // 0 = neutral, 0.2–0.35 = gently warm
+                saturation={1} // keep that desaturated vibe
+                shadowStrength={0.5}
+                shadowWidth={0.08}
+            />
         </div>
     );
 }
