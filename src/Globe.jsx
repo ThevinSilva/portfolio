@@ -2,32 +2,239 @@ import React, { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
-import { useShaders } from "./utils/shaderLoader";
 // fetch + post requests
 import getLocation from "./api/getLocation";
 
 // Globe component that renders inside Canvas
 function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
     // Load shaders with fallback support
-    const {
-        shaders,
-        _,
-        error: shaderError,
-        usingFallback,
-    } = useShaders({
-        vertex: "./shaders/vertex.glsl",
-        fragment: "./shaders/fragment.glsl",
-    });
+    const shaders = {
+        vertex: `            
+attribute float isUserDot;
+attribute float dotIndex;
+varying vec3 vWorldPosition;
+varying vec3 vOriginalPosition;
+varying float vIsUserDot;
+varying vec2 vUv;
+varying float vDotIndex;
+varying float vDistanceFromUser;
+varying float vDistanceFromMouse;
+uniform vec3 viewPosition;
+uniform vec3 userPosition;
+uniform vec3 mouseWorldPosition;
+uniform float time;
+uniform float mouseVelocity;
 
-    // Log shader loading status
-    useEffect(() => {
-        if (usingFallback) {
-            console.warn("Globe: Using fallback shaders - check that .glsl files are accessible");
+void main() {
+vIsUserDot = isUserDot;
+vUv = uv;
+vDotIndex = dotIndex;
+
+// Get the instance position (center of the dot)
+vec4 instancePos = instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
+vec3 originalWorldPos = (modelMatrix * instancePos).xyz;
+vOriginalPosition = originalWorldPos;
+vec3 worldPos = originalWorldPos;
+
+// Calculate distance from user dot for pulse effect
+vDistanceFromUser = distance(worldPos, userPosition);
+
+// Calculate distance from mouse for ripple effect
+vDistanceFromMouse = distance(worldPos, mouseWorldPosition);
+
+// Billboard the geometry to always face the camera
+vec3 cameraDirection = normalize(viewPosition - worldPos);
+vec3 up = vec3(0.0, 1.0, 0.0);
+vec3 right = normalize(cross(up, cameraDirection));
+up = normalize(cross(cameraDirection, right));
+
+// Base dot size - user dot largest, others varied
+float dotSize = isUserDot > 0.5 ? 7.0 : (mod(dotIndex, 2.0) < 1.0 ? 2.5 : 1.8);
+
+// Pulse effect from user dot
+if (isUserDot < 0.5) {
+    float pulseSpeed = 2.0;
+    float pulseRadius = mod(time * pulseSpeed, 8.0) * 100.0;
+    float pulseWidth = 50.0;
+    
+    if (abs(vDistanceFromUser - pulseRadius) < pulseWidth) {
+        float pulseStrength = 1.0 - abs(vDistanceFromUser - pulseRadius) / pulseWidth;
+        dotSize += pulseStrength * 1.5;
+    }
+}
+
+// DRAMATIC MOUSE RIPPLE EFFECTS - MUCH LARGER AND MORE INTENSE
+float baseRippleRadius = 400.0; // Much larger base radius
+float velocityMultiplier = 1.0 + mouseVelocity * 2.0; // Velocity amplifies effect
+float effectiveRippleRadius = baseRippleRadius * velocityMultiplier;
+
+if (vDistanceFromMouse < effectiveRippleRadius) {
+    float proximity = 1.0 - (vDistanceFromMouse / effectiveRippleRadius);
+    proximity = smoothstep(0.0, 1.0, proximity);
+    
+    // Multiple dramatic ripple waves
+    float waveIntensity = 1.0 + mouseVelocity * 1.0; // Velocity makes waves more intense
+    
+    float wave1 = sin(vDistanceFromMouse * 0.008 - time * 12.0) * waveIntensity;
+    float wave2 = sin(vDistanceFromMouse * 0.012 - time * 8.0) * waveIntensity * 0.8;
+    float wave3 = sin(vDistanceFromMouse * 0.015 - time * 15.0) * waveIntensity * 0.6;
+    float wave4 = sin(vDistanceFromMouse * 0.005 - time * 6.0) * waveIntensity * 1.2;
+    
+    float combinedWave = (wave1 + wave2 + wave3 + wave4) * 0.25;
+    float rippleStrength = combinedWave * proximity;
+    
+    
+    // DRAMATIC radial displacement from mouse position
+    vec3 displacementDirection = normalize(worldPos - mouseWorldPosition);
+    if (length(displacementDirection) > 0.0) {
+        // Much larger displacement based on velocity
+        float baseDisplacement = 60.0;
+        float velocityDisplacement = mouseVelocity * 40.0;
+        float displacementAmount = rippleStrength * (baseDisplacement + velocityDisplacement);
+        
+        worldPos += displacementDirection * displacementAmount;
+        
+        // Additional chaotic movement for high velocities
+        if (mouseVelocity > 0.1) {
+            float chaos = sin(time * 4.0 + vDotIndex * 0.1) * mouseVelocity * 10.0;
+            vec3 chaosDirection = normalize(vec3(
+                sin(vDotIndex * 0.1),
+                cos(vDotIndex * 0.1), 
+                sin(vDotIndex * 0.1)
+            ));
+            worldPos += chaosDirection * chaos * proximity;
         }
-        if (shaderError) {
-            console.error("Globe: Shader loading failed:", shaderError);
-        }
-    }, [usingFallback, shaderError]);
+        
+        // Velocity-based radial pulsing
+        float velocityPulse = sin(time * 1.0) * mouseVelocity * 30.0;
+        worldPos += displacementDirection * velocityPulse * proximity;
+    }
+    
+    // Z-axis displacement for 3D effects
+    float zDisplacement = cos(vDistanceFromMouse * 0.1 - time * 0.01) * proximity * (20.0 + mouseVelocity * 5.0);
+    worldPos.z -= zDisplacement;
+}
+
+// Store final world position
+vWorldPosition = worldPos;
+
+// Apply the billboard transformation to the vertex position
+vec3 billboardPos = worldPos + (right * position.x + up * position.y) * dotSize;
+
+gl_Position = projectionMatrix * viewMatrix * vec4(billboardPos, 1.0);
+}`,
+        fragment: `
+varying vec3 vWorldPosition;
+varying vec3 vOriginalPosition;
+varying float vIsUserDot;
+varying vec2 vUv;
+varying float vDotIndex;
+varying float vDistanceFromUser;
+varying float vDistanceFromMouse;
+uniform vec3 viewPosition;
+uniform float time;
+uniform float mouseVelocity;
+
+// Shape functions
+float octagonShape(vec2 uv) {
+uv = abs(uv);
+float d = max(uv.x, uv.y);
+float corner = (uv.x + uv.y) * 0.7071;
+d = max(d, corner);
+return 1.0 - smoothstep(0.8, 0.9, d);
+}
+
+void main() {
+// Calculate how much this dot faces the camera
+vec3 viewDirection = normalize(viewPosition);
+vec3 dotDirection = normalize(vOriginalPosition);
+float facing = dot(dotDirection, viewDirection);
+
+// Fade based on angle - front bright, back dim but visible
+float baseFacing = max(0.0, facing);
+float opacity = mix(0.15, 1.0, baseFacing);
+
+// Create shape based on facing angle
+vec2 centeredUV = (vUv - 0.5) * 2.0;
+float shapeAlpha;
+
+if (baseFacing < 0.3) {
+shapeAlpha = octagonShape(centeredUV);
+} else {
+float dist = length(centeredUV);
+shapeAlpha = 1.0 - smoothstep(0.8, 1.0, dist);
+}
+
+opacity *= shapeAlpha;
+
+// Enhanced color scheme
+vec3 color;
+if (vIsUserDot > 0.5) {
+// User dot - bright red with pulsing
+float pulse = sin(time * 3.0) * 0.3 + 0.7;
+color = vec3(1.0, 0.0, 0.0) * pulse;
+} else {
+// Regular dots - varying shades of white/grey
+float greyVariation = mod(vDotIndex * 0.1, 1.0);
+float greyLevel = mix(0.4, 0.9, greyVariation);
+
+// Pulse effect coloring from user location
+float pulseSpeed = 2.0;
+float pulseRadius = mod(time * pulseSpeed, 8.0) * 100.0;
+float pulseWidth = 50.0;
+
+if (abs(vDistanceFromUser - pulseRadius) < pulseWidth) {
+    float pulseStrength = 1.0 - abs(vDistanceFromUser - pulseRadius) / pulseWidth;
+    greyLevel = mix(greyLevel, 1.0, pulseStrength * 0.8);
+}
+
+// DRAMATIC mouse ripple coloring effects
+float baseRippleRadius = 400.0;
+float velocityMultiplier = 1.0 + mouseVelocity * 2.0;
+float effectiveRippleRadius = baseRippleRadius * velocityMultiplier;
+
+if (vDistanceFromMouse < effectiveRippleRadius) {
+    float proximity = 1.0 - (vDistanceFromMouse / effectiveRippleRadius);
+    proximity = smoothstep(0.0, 1.0, proximity);
+    
+    // Dynamic color waves based on velocity
+    float colorIntensity = 1.0 + mouseVelocity * 2.0;
+    float colorWave1 = sin(vDistanceFromMouse * 0.008 - time * 12.0) * colorIntensity;
+    float colorWave2 = sin(vDistanceFromMouse * 0.012 - time * 8.0) * colorIntensity;
+    
+    // Velocity-based color shifting
+    vec3 baseRippleColor = vec3(1, 1, 1.0); // Blue
+    vec3 velocityColor = vec3(1.0, 0.3, 0.8); // Hot pink for high velocity
+    vec3 rippleColor = mix(baseRippleColor, velocityColor, mouseVelocity * 0.3);
+    
+    // Add electric effect for high velocity
+    if (mouseVelocity > 3.0) {
+        float electric = sin(time * 30.0 + vDotIndex * 0.5) * 0.5 + 0.5;
+        rippleColor = mix(rippleColor, vec3(1.0, 1.0, 0.0), electric * 0.4); // Yellow electric
+    }
+    
+    // Blend ripple color with base color - much more dramatic
+    float colorBlend = proximity * (0.8 + mouseVelocity * 0.2);
+    color = mix(vec3(greyLevel), rippleColor, colorBlend);
+    
+    // MASSIVE brightness boost based on velocity
+    float brightnessBoost = 1.0 + proximity * (1.0 + mouseVelocity * 2.0);
+    color *= brightnessBoost;
+    
+    // Make opacity more dramatic too
+    opacity *= (1.0 + proximity * mouseVelocity * 0.5);
+} else {
+    color = vec3(greyLevel);
+}
+}
+
+// Discard transparent pixels
+if (opacity < 0.01) discard;
+
+gl_FragColor = vec4(color, opacity);
+}
+`,
+    };
 
     const DOT_COUNT = 60000;
     const GLOBE_RADIUS = 600;
