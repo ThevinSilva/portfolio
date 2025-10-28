@@ -5,7 +5,7 @@ import LinkButton from "./components/LinkButton";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const Column = ({ proj, index, setIncrement }) => {
+const Switch = ({ proj, index, setIncrement }) => {
     const tweenRef = useRef(null);
     const backgroundRef = useRef(null);
     const [clicked, setClicked] = useState(false);
@@ -49,7 +49,7 @@ const Column = ({ proj, index, setIncrement }) => {
 
     return (
         <div
-            className="column"
+            className="switch"
             onClick={() => {
                 handleClick();
                 setIncrement((prev) => prev + index);
@@ -124,7 +124,7 @@ export default function Work() {
         () => {
             if (increment === 0 && previousIndex === 0) return;
 
-            const items = carouselRef.current.querySelectorAll(".column");
+            const items = carouselRef.current.querySelectorAll(".switch");
             const currPos = increment % data.length;
             const prevPos = previousIndex % data.length;
             const step = (((currPos - prevPos) % data.length) + data.length) % data.length;
@@ -195,10 +195,11 @@ export default function Work() {
             <div ref={slideRef} className="slide"></div>
             <div ref={carouselRef} className="carousel">
                 {visible.map((x, i) => (
-                    <Column key={x.order} proj={x} index={i} increment={increment} setIncrement={setIncrement} />
+                    <Switch key={x.order} proj={x} index={i} increment={increment} setIncrement={setIncrement} />
                 ))}
             </div>
             <div className="grid">
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
                 <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
                 <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
                 <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />

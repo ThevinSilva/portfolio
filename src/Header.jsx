@@ -5,8 +5,8 @@ export default function Header() {
         <menu>
             <h1>TS</h1>
             <div className="links">
-                <MenuButton text={"About Me"} />
-                <MenuButton text={"Projects"} />
+                <MenuButton text={"About"} />
+                <MenuButton text={"Work"} />
                 <MenuButton text={"Contact"} />
             </div>
         </menu>

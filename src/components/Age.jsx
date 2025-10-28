@@ -8,5 +8,5 @@ export default function Age() {
         setInterval(() => setTime(Date.now()), 100);
     }, []);
 
-    return <span> {((time - BIRTHDAY) / 60 / 60 / 24 / 365 / 1000).toString().slice(0, 12)} </span>;
+    return <> {((time - BIRTHDAY) / 60 / 60 / 24 / 365 / 1000).toString().slice(0, 12)} </>;
 }

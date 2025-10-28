@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-export default function Role({ roles = ["fullstack developer", "Data Scientist", "Web Designer"] }) {
+export default function Role({ roles = ["fullstack Dev", "Data Scientist", "Web Designer"] }) {
     const [word, setWord] = useState("");
     const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -55,7 +55,7 @@ export default function Role({ roles = ["fullstack developer", "Data Scientist",
 
     return (
         <h1 ref={ref}>
-            {word} <span ref={cursorRef} style={{ borderLeft: "4px solid #f9020290", height: "100%" }}></span>
+            {word} <span ref={cursorRef} style={{ borderLeft: "4px solid #f9020290" }}></span>
         </h1>
     );
 }

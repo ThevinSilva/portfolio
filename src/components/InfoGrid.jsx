@@ -10,6 +10,7 @@ import Age from "./Age";
 import LocationWorldMap from "./LocationWorldMap";
 import LangDistribution from "./LangDistribution";
 import SectionHeader from "./SectionHeader";
+import Infobar from "./InfoBar";
 
 function InfoGrid() {
     const attributeRef = useRef(null);
@@ -74,7 +75,7 @@ function InfoGrid() {
     return (
         <>
             <div className="header"></div>
-            <div className="InfoGrid" data-scroll-section>
+            <div className="infoGrid" data-scroll-section>
                 <BorderAnimatedBox className="left">
                     <div className="thing">
                         <div className="image">
@@ -104,7 +105,7 @@ function InfoGrid() {
                         </BorderAnimatedBox>
                     </div>
                 </BorderAnimatedBox>
-                <div></div>
+                <Infobar />
                 <BorderAnimatedBox className="right">
                     <LocationWorldMap />
                     <LangDistribution />
