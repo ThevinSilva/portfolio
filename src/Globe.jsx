@@ -4,7 +4,6 @@ import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 // fetch + post requests
 import getLocation from "./api/getLocation";
-
 // Globe component that renders inside Canvas
 function GlobeScene({ mapUrl, userLocation, mousePosition, mouseVelocity }) {
     // Load shaders with fallback support

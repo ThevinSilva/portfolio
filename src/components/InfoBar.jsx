@@ -18,7 +18,7 @@ function InfoBar(props) {
                 <span id={"clock"}>{time}</span>
             </div>
             <BarCode id={"barcode"} />
-            <Spinner />
+            <Spinner id={"spinner"} />
             <div>
                 <Role />
             </div>

@@ -269,6 +269,19 @@ menu {
             width: 5%;
             z-index: 5;
 
+            #spinner {
+                animation: myAnimation 2s linear infinite;
+            }
+
+            @keyframes myAnimation {
+                0% {
+                    transform: rotate(0);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
 
 
             div {
@@ -293,6 +306,8 @@ menu {
                     vertical-align: middle;
 
                 }
+
+
 
 
                 #clock {
@@ -758,6 +773,8 @@ menu {
 .contact {
     position: relative;
     height: 100svh;
+    background: $background-color;
+    z-index: 2;
 }
 
 .pixelated-image-card {
