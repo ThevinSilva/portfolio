@@ -76,7 +76,7 @@ function InfoGrid() {
         <>
             <div className="header"></div>
             <div className="infoGrid" data-scroll-section>
-                <BorderAnimatedBox className="left">
+                <BorderAnimatedBox className="left " data-scroll data-scroll-speed="-0.1" data-scroll-repeat>
                     <div className="thing">
                         <div className="image">
                             <DynamicImage inView={inView} />
@@ -105,8 +105,8 @@ function InfoGrid() {
                         </BorderAnimatedBox>
                     </div>
                 </BorderAnimatedBox>
-                <Infobar />
-                <BorderAnimatedBox className="right">
+                <Infobar data-scroll data-scroll-speed="0" data-scroll-repeat />
+                <BorderAnimatedBox className="right glass" data-scroll data-scroll-repeat data-scroll-speed="0.5">
                     <LocationWorldMap />
                     <LangDistribution />
                     <TechnologyGrid />

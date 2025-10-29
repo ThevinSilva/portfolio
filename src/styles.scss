@@ -96,6 +96,12 @@ $background-color: #1a1a1a;
     color: rgb(239, 38, 38);
 }
 
+.glass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 button {
     all: unset;
 }
@@ -151,6 +157,32 @@ menu {
     }
 }
 
+
+
+
+.Globe {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+
+    canvas {
+        // display: none !important;
+        overflow: hidden;
+        // this is temporary        
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+    }
+
+}
+
+.dither-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 0;
+}
+
 .Hero {
     position: relative;
     flex: row;
@@ -198,30 +230,6 @@ menu {
 
 
     }
-
-    .Globe {
-        canvas {
-            // display: none !important;
-            overflow: hidden;
-            // this is temporary        
-            width: 100vw;
-            height: 100vh;
-        }
-
-    }
-
-
-
-    video {
-        position: absolute;
-
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-    }
 }
 
 
@@ -234,10 +242,10 @@ menu {
 }
 
 
-.About {
+.about {
     position: relative;
     width: 80%;
-    height: 100%;
+    height: 100svh;
     margin: 0 auto;
 
     .infoGrid {
@@ -245,10 +253,9 @@ menu {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        height: 70svh;
+        height: 70%;
         width: 100%;
         margin: 0 auto;
-        overflow: hidden;
         font-family: "space mono", monospace;
         border: none;
 
@@ -260,6 +267,7 @@ menu {
             align-items: center;
             justify-content: space-evenly;
             width: 5%;
+            z-index: 5;
 
 
 
@@ -311,6 +319,7 @@ menu {
             font-weight: 700;
             height: 100%;
             width: 35%;
+            z-index: 2;
 
             .thing {
                 position: relative;
@@ -398,6 +407,7 @@ menu {
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 2;
 
             .map {
                 position: relative;
@@ -459,7 +469,7 @@ menu {
 
                             svg {
                                 position: relative;
-                                z-index: 2;
+                                z-index: 5;
                                 filter: brightness(0) invert(1);
                                 transform: scale(2);
                                 flex: 1 1 0;
@@ -482,6 +492,7 @@ menu {
                                 font-size: 1rem;
                                 color: rgb(80, 80, 80);
                                 flex: 1 1 0;
+                                z-index: 5;
                                 min-width: 0;
                             }
 
@@ -493,7 +504,7 @@ menu {
                                 align-items: center;
                                 letter-spacing: 0.25em;
                                 font-size: 0.5rem;
-                                z-index: 2;
+                                z-index: 5;
                                 text-transform: uppercase;
                                 font-weight: 500;
                                 font-family: "Antonio", sans-serif;
@@ -519,6 +530,7 @@ menu {
                         background-color: #fff;
                         pointer-events: none;
                         transition: all 0.2s ease;
+                        z-index: 4;
                     }
 
                 }
@@ -593,7 +605,7 @@ menu {
     width: 100%;
     overflow: clip;
     border: solid 1px;
-    z-index: 0;
+    z-index: 1;
 
     .video {
         position: absolute;
@@ -743,7 +755,10 @@ menu {
 
 }
 
-
+.contact {
+    position: relative;
+    height: 100svh;
+}
 
 .pixelated-image-card {
     color: var(--color-primary, #fff);
@@ -812,6 +827,7 @@ menu {
 .sectionHeader {
     position: absolute;
     font-family: "NuCoreCondensed";
+    font-weight: 400;
     z-index: 90;
     color: $background-color;
     background-color: white;

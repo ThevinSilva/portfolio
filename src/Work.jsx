@@ -3,6 +3,7 @@ import { useRef, useState, useLayoutEffect } from "react";
 import Experience from "./components/Experience";
 import LinkButton from "./components/LinkButton";
 import { useGSAP } from "@gsap/react";
+import SectionHeader from "./components/SectionHeader";
 import gsap from "gsap";
 
 const Switch = ({ proj, index, setIncrement }) => {
@@ -180,6 +181,9 @@ export default function Work() {
 
     return (
         <div className="work">
+            <SectionHeader>
+                02 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>Work
+            </SectionHeader>
             <div className="content" ref={contentRef}>
                 <h1>{content.name}</h1>
                 <p>{content.description}</p>

@@ -4,7 +4,7 @@ import BorderAnimatedBox from "./components/BorderAnimation";
 
 export default function About() {
     return (
-        <div className="About">
+        <div className="about">
             <InfoGrid />
         </div>
     );

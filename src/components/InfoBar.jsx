@@ -5,7 +5,7 @@ import Role from "./Role";
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
-function InfoBar() {
+function InfoBar(props) {
     const [time, setTime] = useState(DateTime.now().setZone("gmt").toISOTime().substring(0, 5));
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function InfoBar() {
     }, []);
 
     return (
-        <div className="infoBar">
+        <div className="infoBar" {...props}>
             <div>
                 <span id={"clock"}>{time}</span>
             </div>

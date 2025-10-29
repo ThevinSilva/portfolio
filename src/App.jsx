@@ -7,7 +7,7 @@ import Header from "./Header";
 import Hero from "./Hero";
 import About from "./About";
 import Work from "./Work";
-
+import Contact from "./Contact";
 
 // gsap + plugins
 import gsap from "gsap";
@@ -15,6 +15,9 @@ import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Globe from "./Globe";
+
+import Dither from "./components/Dither";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(SplitText);
@@ -35,8 +38,13 @@ function App() {
             <Hero />
             <Header />
             <About />
-            <Work/>
-    </div>
+            <Work />
+            <Contact />
+            <div className="Globe">
+                <Globe />
+                <Dither />
+            </div>
+        </div>
     );
 }
 
