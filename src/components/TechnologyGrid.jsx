@@ -4,8 +4,8 @@ import BorderAnimatedBox from "./BorderAnimation";
 
 export default function About() {
     const technologies = [
-        { flask: <FlaskOriginal />, numpy: <NumpyOriginal />, pandas: <PandasOriginal />, matplotlib: <MatplotlibPlain />, latex: <LatexOriginal /> },
-        { node: <NodejsPlain />, react: <ReactOriginal />, svelte: <SveltePlain />, mongodb: <MongodbPlain />, firebase: <FirebasePlain />, threejs: <ThreejsOriginal /> },
+        { flask: <FlaskOriginal />, numpy: <NumpyOriginal />, pandas: <PandasOriginal />, matplotlib: <MatplotlibPlain /> },
+        { node: <NodejsPlain />, react: <ReactOriginal />, svelte: <SveltePlain />, mongodb: <MongodbPlain /> },
         { dotnet: <DotnetcoreOriginal />, sql: <AzuresqldatabasePlain />, visualStudio: <VisualstudioOriginal />, azure: <AzuredevopsOriginal /> },
     ];
 

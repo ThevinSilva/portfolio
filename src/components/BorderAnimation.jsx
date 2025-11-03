@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { top: true, right: true, bottom: true, left: true }, ...props }) => {
+const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { top: true, right: true, bottom: true, left: true }, delay = 0, ...props }) => {
     const boxRef = useRef(null);
     const topRef = useRef(null);
     const rightRef = useRef(null);
@@ -32,7 +30,7 @@ const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { t
                     duration: 0.25,
                     ease: "power2.out",
                 },
-                0
+                delay
             );
         }
 
@@ -46,7 +44,7 @@ const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { t
                     duration: 0.25,
                     ease: "power2.out",
                 },
-                0.25
+                0.25 + delay
             );
         }
 
@@ -60,7 +58,7 @@ const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { t
                     duration: 0.25,
                     ease: "power2.out",
                 },
-                0.5
+                0.5 + delay
             );
         }
 
@@ -74,14 +72,14 @@ const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { t
                     duration: 0.25,
                     ease: "power2.out",
                 },
-                0.75
+                0.75 + delay
             );
         }
 
         return () => {
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         };
-    }, [borders.top, borders.right, borders.bottom, borders.left]);
+    }, [borders.top, borders.right, borders.bottom, borders.left, delay]);
 
     const borderStyle = {
         position: "absolute",

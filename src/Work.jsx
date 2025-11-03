@@ -203,14 +203,14 @@ export default function Work() {
                 ))}
             </div>
             <div className="grid">
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.1} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.2} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.3} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.4} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.5} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.6} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.7} />
+                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.8} />
             </div>
             <Experience
                 src={content.src}

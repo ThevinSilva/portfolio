@@ -1,10 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import SplitText from "gsap/SplitText";
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function BlinkReveal({ children, flickerIndex, delay = 0 }) {
     const textRef = useRef(null);

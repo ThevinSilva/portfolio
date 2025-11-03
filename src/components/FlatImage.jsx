@@ -71,7 +71,7 @@ export default function FlatImage() {
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::-------------------------------@`;
 
     return (
-        <div className="image" data-scroll>
+        <div className="image">
             <pre>{logo}</pre>
         </div>
     );

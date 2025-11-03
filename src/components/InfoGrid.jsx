@@ -1,5 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import TextTypeWriterAnimation from "./TextTypeWriterAnimation";
 import TextPopInAnimation from "./TextPopInAnimation";
@@ -17,11 +18,24 @@ import Dither from "./Dither.jsx";
 
 function InfoGrid() {
     const attributeRef = useRef(null);
-    const [inView, setInView] = useState(false);
+    const [isInView, setIsInView] = useState(false);
 
     useGSAP(
         () => {
-            const scrambleAnimation = gsap.timeline({ id: "informationAnimation", paused: true });
+            const scrambleAnimation = gsap.timeline({
+                id: "informationAnimation",
+                paused: true,
+                scrollTrigger: {
+                    trigger: attributeRef.current,
+                    start: "top bottom",
+                    once: true,
+                    onEnter: () => {
+                        setIsInView(true);
+                        scrambleAnimation.play();
+                    },
+                },
+            });
+
             const revealItems = gsap.utils.toArray(".reveal");
             const scrambleItems = gsap.utils.toArray(".scrambled");
 
@@ -52,10 +66,15 @@ function InfoGrid() {
                 scrambleAnimation.add(tl, index * 0.1 + 1.2);
             });
 
-            scrambleAnimation.play();
-            setInView(true);
+            return () => {
+                ScrollTrigger.getAll().forEach((trigger) => {
+                    if (trigger.trigger === attributeRef.current) {
+                        trigger.kill();
+                    }
+                });
+            };
         },
-        { dependencies: attributeRef }
+        { dependencies: [attributeRef], scope: attributeRef }
     );
 
     const information = {
@@ -77,20 +96,20 @@ function InfoGrid() {
                 <BorderAnimatedBox className="left ">
                     <div className="thing">
                         <div className="image">
-                            <DynamicImage inView={inView} />
+                            <DynamicImage inView={isInView} />
                             <SectionHeader>
                                 01 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>About
                             </SectionHeader>
                         </div>
                         <BorderAnimatedBox className="attributes" ref={attributeRef} borders={{ top: false, right: false, bottom: false, left: true }}>
                             <span className="header">
-                                {inView && (
+                                {isInView && (
                                     <TextPopInAnimation delay={0.4} ease={"power4.out"} duration={1}>
                                         thevin<span className="accent">@</span>silva
                                     </TextPopInAnimation>
                                 )}
                             </span>
-                            {inView && (
+                            {isInView && (
                                 <TextTypeWriterAnimation duration={1} ease="power4.out">
                                     <span className="divider">{Array(20).fill(">").join(" ")}</span>
                                 </TextTypeWriterAnimation>

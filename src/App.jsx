@@ -22,7 +22,26 @@ gsap.registerPlugin(ScrambleTextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const mainElement = document.querySelector('.main');
+
+        const handleScroll = () => {
+            ScrollTrigger.refresh();
+        };
+
+        if (mainElement) {
+            mainElement.addEventListener('scroll', handleScroll);
+        }
+
+        // Initial refresh after mount
+        ScrollTrigger.refresh();
+
+        return () => {
+            if (mainElement) {
+                mainElement.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, []);
 
     return (
         <div className="main">

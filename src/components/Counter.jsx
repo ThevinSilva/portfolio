@@ -1,5 +1,41 @@
-import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { useMotionValue, useSpring } from "motion/react";
+
+// Custom useInView hook using Intersection Observer
+function useInView(ref, options = {}) {
+    const [isInView, setIsInView] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsInView(true);
+                    if (options.once) {
+                        observer.disconnect();
+                    }
+                } else if (!options.once) {
+                    setIsInView(false);
+                }
+            },
+            {
+                threshold: 0,
+                rootMargin: options.margin || "0px",
+            }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => {
+            if (ref.current) {
+                observer.unobserve(ref.current);
+            }
+        };
+    }, [ref, options.once, options.margin]);
+
+    return isInView;
+}
 
 export default function CountUp({ to, from = 0, direction = "up", delay = 0, duration = 2, className = "", startWhen = true, separator = "", onStart, onEnd }) {
     const ref = useRef(null);
