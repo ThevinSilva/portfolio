@@ -240,7 +240,7 @@ function DitheredWaves({ waveSpeed, waveFrequency, waveAmplitude, waveColor, col
     );
 }
 
-export default function Dither({ waveSpeed = 0.05, waveFrequency = 3, waveAmplitude = 0.3, waveColor = [0.5, 0.5, 0.5], colorNum = 4, pixelSize = 5, disableAnimation = false, enableMouseInteraction = true, mouseRadius = 0.5 }) {
+export default function Dither({ waveSpeed = 0.02, waveFrequency = 3, waveAmplitude = 0.3, waveColor = [0.6, 0.3, 0.3], colorNum = 4, pixelSize = 5, disableAnimation = false, enableMouseInteraction = false, mouseRadius = 0.4 }) {
     return (
         <Canvas className="dither-container" camera={{ position: [0, 0, 6] }} dpr={1} gl={{ antialias: true, preserveDrawingBuffer: true }}>
             <DitheredWaves waveSpeed={waveSpeed} waveFrequency={waveFrequency} waveAmplitude={waveAmplitude} waveColor={waveColor} colorNum={colorNum} pixelSize={pixelSize} disableAnimation={disableAnimation} enableMouseInteraction={enableMouseInteraction} mouseRadius={mouseRadius} />

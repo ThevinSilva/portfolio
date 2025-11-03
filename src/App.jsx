@@ -15,9 +15,6 @@ import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Globe from "./Globe";
-
-import Dither from "./components/Dither";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(SplitText);
@@ -25,25 +22,14 @@ gsap.registerPlugin(ScrambleTextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-    useEffect(() => {
-        (async () => {
-            const LocomotiveScroll = (await import("locomotive-scroll")).default;
-            // eslint-disable-next-line no-unused-vars
-            const locomotiveScroll = new LocomotiveScroll();
-        })();
-    }, []);
+    useEffect(() => {}, []);
 
     return (
-        <div className="content" data-scroll-container>
-            <Hero />
+        <div className="main">
             <Header />
             <About />
             <Work />
             <Contact />
-            <div className="Globe">
-                <Globe />
-                <Dither />
-            </div>
         </div>
     );
 }

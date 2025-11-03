@@ -677,7 +677,7 @@ export default function Globe({ mapUrl = "map.jpg", ...props }) {
     return (
         <Canvas
             camera={{
-                position: [0, 0, 1500],
+                position: [0, 0, 1200],
                 fov: 60,
                 near: 1,
                 far: 3000,

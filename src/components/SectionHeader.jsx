@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useRef } from "react";
 import TextBlinkReveal from "./TextBlinkReveal";
 
-export default function SectionHeader({ children }) {
+export default function SectionHeader({ children, props }) {
     const headerRef = useRef(null);
 
     useGSAP(
@@ -31,7 +31,7 @@ export default function SectionHeader({ children }) {
     );
 
     return (
-        <div ref={headerRef} className="sectionHeader">
+        <div ref={headerRef} className="sectionHeader" {...props}>
             <TextBlinkReveal flickerIndex={100} delay={0.5}>
                 {children}
             </TextBlinkReveal>

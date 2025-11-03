@@ -92,6 +92,13 @@ $background-color: #1a1a1a;
     margin: 0;
 }
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .accent {
     color: rgb(239, 38, 38);
 }
@@ -114,6 +121,16 @@ body {
     overflow: clip;
     background: #1a1a1a;
     color: #fff;
+
+    --dot-bg: black;
+    --dot-color: rgb(0, 0, 0);
+    --dot-size: 1px;
+    --dot-space: 22px;
+    background:
+        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        var(--dot-color);
+
 }
 
 menu {
@@ -161,27 +178,21 @@ menu {
 
 
 .Globe {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
+    position: relative;
+    width: 100%;
+    height: 100%;
 
     canvas {
         // display: none !important;
-        overflow: hidden;
         // this is temporary        
-        width: 100vw;
-        height: 100vh;
-        z-index: 1;
+        width: 100px;
+        height: 100px;
+        z-index: 100;
     }
 
 }
 
-.dither-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: 0;
-}
+
 
 .Hero {
     position: relative;
@@ -191,6 +202,7 @@ menu {
     width: 100%;
     height: 120vh;
     overflow: hidden;
+    scroll-snap-align: start;
 
     .hero-content {
         position: absolute;
@@ -233,23 +245,27 @@ menu {
 }
 
 
-.content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    overflow: clip;
-
+.main {
+    position: relative;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overflow-x: clip;
+    width: 100%;
+    height: 100vh;
 }
 
 
 .about {
     position: relative;
-    width: 80%;
-    height: 100svh;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100vh !important;
     margin: 0 auto;
+    scroll-snap-align: center;
 
     .infoGrid {
-        position: relative;
+        position: absolute;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
@@ -347,7 +363,7 @@ menu {
                     position: relative;
                     width: 100%;
                     height: 100%;
-                    z-index: 5;
+                    z-index: 6;
                 }
 
                 .links {
@@ -430,6 +446,7 @@ menu {
                 height: 100%;
                 display: flex;
                 align-items: center;
+                overflow: clip;
 
                 svg {
                     position: absolute;
@@ -550,35 +567,11 @@ menu {
 
                 }
 
+                // @media (max-width: 900px) {
+                //     height: 100%;
+                //     padding: 25vh 0;
 
-
-                @media (max-width: 900px) {
-                    height: 100%;
-                    min-height: 100svh;
-                    padding: 25vh 0;
-
-                    .Grid {
-                        height: max-content;
-
-                        .row {
-                            flex-direction: column;
-
-                            .item {
-                                width: 100%;
-                                padding: 60px;
-                            }
-
-                            .item:not(:last-child) {
-                                border-right: none;
-                                border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.2);
-                            }
-                        }
-
-
-                    }
-
-
-                }
+                // }
             }
         }
     }
@@ -615,12 +608,15 @@ menu {
 }
 
 .work {
+    position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 100vh;
     overflow: clip;
     border: solid 1px;
     z-index: 1;
+    scroll-snap-align: start;
 
     .video {
         position: absolute;
@@ -679,7 +675,7 @@ menu {
     .column {
         height: 100%;
         width: 12.5%;
-        height: 100svh;
+        height: 100vh;
         z-index: 1;
     }
 
@@ -717,7 +713,7 @@ menu {
             opacity: 1;
             width: 25%;
             z-index: 10;
-            height: 100svh;
+            height: 100vh;
 
             .background {
                 position: absolute;
@@ -772,9 +768,103 @@ menu {
 
 .contact {
     position: relative;
-    height: 100svh;
+    height: 100vh;
+    width: 100%;
     background: $background-color;
     z-index: 2;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    scroll-snap-align: start;
+
+    .content {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        height: 70%;
+        width: 100%;
+        z-index: 10;
+
+
+        form {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0 5%;
+            justify-content: center;
+            gap: 1rem;
+
+            label {
+                font-family: "KHInterferenceTRIAL";
+                font-weight: 300;
+                font-size: 2rem;
+                display: inline;
+                margin-top: 1rem;
+            }
+
+            input,
+            textarea {
+                font-family: "space mono", monospace;
+                font-size: 1.2rem;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: white;
+                outline: none;
+                transition: border-color 0.3s ease;
+
+                &:focus {
+                    border-color: rgba(255, 255, 255, 0.5);
+                }
+
+                &::placeholder {
+                    color: rgba(255, 255, 255, 0.3);
+                }
+            }
+
+            textarea {
+                resize: vertical;
+                min-height: 150px;
+            }
+
+            button[type="submit"] {
+                font-family: "NuCoreCondensed";
+                font-size: 1.5rem;
+                letter-spacing: 0.5rem;
+                padding: 1rem 2rem;
+                margin-top: 2rem;
+                background: white;
+                color: $background-color;
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                width: fit-content;
+                align-self: flex-end;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.9);
+                    transform: translateY(-2px);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+
+
+}
+
+
+.dither-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.4;
 }
 
 .pixelated-image-card {

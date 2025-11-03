@@ -11,6 +11,9 @@ import LocationWorldMap from "./LocationWorldMap";
 import LangDistribution from "./LangDistribution";
 import SectionHeader from "./SectionHeader";
 import Infobar from "./InfoBar";
+import Dither from "./Dither.jsx";
+
+// NOTE : Skew based on scroll https://gsap.com/community/forums/topic/25971-skew-on-scroll-velocity/
 
 function InfoGrid() {
     const attributeRef = useRef(null);
@@ -49,12 +52,8 @@ function InfoGrid() {
                 scrambleAnimation.add(tl, index * 0.1 + 1.2);
             });
 
-            window.addEventListener("AboutInView", (e) => {
-                const { target, way, from } = e.detail;
-                console.log(`target: ${target}`, `way: ${way}`, `from: ${from}`);
-                scrambleAnimation.play();
-                setInView(true);
-            });
+            scrambleAnimation.play();
+            setInView(true);
         },
         { dependencies: attributeRef }
     );
@@ -74,9 +73,8 @@ function InfoGrid() {
 
     return (
         <>
-            <div className="header"></div>
-            <div className="infoGrid" data-scroll-section>
-                <BorderAnimatedBox className="left " data-scroll data-scroll-speed="-0.1" data-scroll-repeat>
+            <div className="infoGrid">
+                <BorderAnimatedBox className="left ">
                     <div className="thing">
                         <div className="image">
                             <DynamicImage inView={inView} />
@@ -84,7 +82,7 @@ function InfoGrid() {
                                 01 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>About
                             </SectionHeader>
                         </div>
-                        <BorderAnimatedBox className="attributes" ref={attributeRef} data-scroll data-scroll-call="AboutInView" borders={{ top: false, right: false, bottom: false, left: true }}>
+                        <BorderAnimatedBox className="attributes" ref={attributeRef} borders={{ top: false, right: false, bottom: false, left: true }}>
                             <span className="header">
                                 {inView && (
                                     <TextPopInAnimation delay={0.4} ease={"power4.out"} duration={1}>
@@ -105,13 +103,14 @@ function InfoGrid() {
                         </BorderAnimatedBox>
                     </div>
                 </BorderAnimatedBox>
-                <Infobar data-scroll data-scroll-speed="0" data-scroll-repeat />
-                <BorderAnimatedBox className="right glass" data-scroll data-scroll-repeat data-scroll-speed="0.5">
+                <Infobar />
+                <BorderAnimatedBox className="right glass">
                     <LocationWorldMap />
                     <LangDistribution />
                     <TechnologyGrid />
                 </BorderAnimatedBox>
             </div>
+            <Dither />
         </>
     );
 }
