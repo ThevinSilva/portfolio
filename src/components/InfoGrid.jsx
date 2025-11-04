@@ -92,17 +92,17 @@ function InfoGrid() {
 
     return (
         <>
-            <div className="infoGrid">
-                <BorderAnimatedBox className="left ">
-                    <div className="thing">
-                        <div className="image">
+            <div className="info-grid">
+                <BorderAnimatedBox className="info-grid-left">
+                    <div className="info-grid-content">
+                        <div className="profile-image">
                             <DynamicImage inView={isInView} />
                             <SectionHeader>
                                 01 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>About
                             </SectionHeader>
                         </div>
                         <BorderAnimatedBox className="attributes" ref={attributeRef} borders={{ top: false, right: false, bottom: false, left: true }}>
-                            <span className="header">
+                            <span className="attributes-header">
                                 {isInView && (
                                     <TextPopInAnimation delay={0.4} ease={"power4.out"} duration={1}>
                                         thevin<span className="accent">@</span>silva
@@ -111,11 +111,11 @@ function InfoGrid() {
                             </span>
                             {isInView && (
                                 <TextTypeWriterAnimation duration={1} ease="power4.out">
-                                    <span className="divider">{Array(20).fill(">").join(" ")}</span>
+                                    <span className="attributes-divider">{Array(20).fill(">").join(" ")}</span>
                                 </TextTypeWriterAnimation>
                             )}
                             {information.fields.map(({ key, value }) => (
-                                <div className="field">
+                                <div className="attribute-field">
                                     <span className="reveal accent">{key}: </span> {key == "Uptime" ? <Age /> : <span className="scrambled">{value}</span>}
                                 </div>
                             ))}
@@ -123,7 +123,7 @@ function InfoGrid() {
                     </div>
                 </BorderAnimatedBox>
                 <Infobar />
-                <BorderAnimatedBox className="right glass">
+                <BorderAnimatedBox className="info-grid-right glass">
                     <LocationWorldMap />
                     <LangDistribution />
                     <TechnologyGrid />

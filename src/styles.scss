@@ -1,35 +1,80 @@
-// Variables
+/* ============================================================================
+   VARIABLES
+   ============================================================================ */
+
+// Color Palette
 $primary-color: #646cff;
 $primary-hover: #535bf2;
 $primary-light: #747bff;
+$accent-red: rgb(239, 38, 38);
+$dark-red: rgb(128, 28, 28);
+$blood-red: rgb(203, 32, 32);
+
+// Background Colors
+$background-color: #1a1a1a;
 $dark-bg: #242424;
 $dark-button-bg: #1a1a1a;
 $light-bg: #ffffff;
 $light-button-bg: #f9f9f9;
+
+// Text Colors
 $text-light: rgba(255, 255, 255, 0.87);
 $text-dark: #213547;
-$background-color: #1a1a1a;
+$text-white: #ffffff;
+$text-gray: #ddd;
+$text-muted: rgb(80, 80, 80);
+
+// UI Colors
+$border-subtle: rgba(255, 255, 255, 0.2);
+$border-focus: rgba(255, 255, 255, 0.5);
+$bg-glass: rgba(255, 255, 255, 0.05);
+$bg-highlight: #fff;
+$placeholder-color: rgba(255, 255, 255, 0.3);
+
+// Spacing Scale
+$spacing-xs: 1%;
+$spacing-sm: 2%;
+$spacing-md: 5%;
+$spacing-lg: 10%;
+$spacing-xl: 15%;
+$spacing-xxl: 25%;
+
+// Layout Dimensions
+$section-height: 100svh;
+$info-grid-width: 80%;
+$info-grid-height: 70%;
+$sidebar-width: 5%;
+$column-width-sm: 35%;
+$carousel-width: 62.5%;
+$column-item-width: 12.5%;
+
+// Breakpoints (for future use)
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 900px;
+$breakpoint-desktop: 1200px;
+
+
+/* ============================================================================
+   FONTS
+   ============================================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Antonio&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @font-face {
     font-family: "LCD14";
-    src: local("LCD14"),
-        url("./fonts/LCD14.otf") format("opentype");
+    src: local("LCD14"), url("./fonts/LCD14.otf") format("opentype");
     font-weight: normal;
 }
 
 @font-face {
     font-family: "Monocraft";
-    src: local("Monocraft-nerd-fonts-patched"),
-        url("./fonts/Monocraft-nerd-fonts-patched.ttc") format("trueType");
+    src: local("Monocraft-nerd-fonts-patched"), url("./fonts/Monocraft-nerd-fonts-patched.ttc") format("trueType");
     font-weight: normal;
 }
 
 @font-face {
     font-family: "KHInterferenceTRIAL";
-    src: local("KHInterferenceTRIAL-Regular"),
-        url("./fonts/KHInterferenceTRIAL-Regular.otf") format("opentype");
+    src: local("KHInterferenceTRIAL-Regular"), url("./fonts/KHInterferenceTRIAL-Regular.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -37,8 +82,7 @@ $background-color: #1a1a1a;
 
 @font-face {
     font-family: "KHInterferenceTRIAL";
-    src: local("KHInterferenceTRIAL-Light"),
-        url("./fonts/KHInterferenceTRIAL-Light.otf") format("opentype");
+    src: local("KHInterferenceTRIAL-Light"), url("./fonts/KHInterferenceTRIAL-Light.otf") format("opentype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -46,8 +90,7 @@ $background-color: #1a1a1a;
 
 @font-face {
     font-family: "KHInterferenceTRIAL";
-    src: local("KHInterferenceTRIAL-Bold"),
-        url("./fonts/KHInterferenceTRIAL-Bold.otf") format("opentype");
+    src: local("KHInterferenceTRIAL-Bold"), url("./fonts/KHInterferenceTRIAL-Bold.otf") format("opentype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -55,22 +98,19 @@ $background-color: #1a1a1a;
 
 @font-face {
     font-family: "NuCaloric";
-    src: local("NuCaIonic"),
-        url("./fonts/NuCaloric.otf") format("opentype");
+    src: local("NuCaIonic"), url("./fonts/NuCaloric.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
     font-family: "NuCoreCondensed";
-    src: local("NuCaIonic"),
-        url("./fonts/NuCoreCondensed.otf") format("opentype");
+    src: local("NuCaIonic"), url("./fonts/NuCoreCondensed.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
     font-family: "Hitobito";
-    src: local("Hitobito"),
-        url("./fonts/Hitobito.otf") format("opentype");
+    src: local("Hitobito"), url("./fonts/Hitobito.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -78,16 +118,60 @@ $background-color: #1a1a1a;
 
 @font-face {
     font-family: "FaytePixelTest";
-    src: local("FaytePixelTest-Hard"),
-        url("./fonts/FaytePixelTest-Hard.otf") format("opentype");
+    src: local("FaytePixelTest-Hard"), url("./fonts/FaytePixelTest-Hard.otf") format("opentype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
 
+
+/* ============================================================================
+   MIXINS
+   ============================================================================ */
+
+// Flex centering pattern (used frequently throughout)
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Flex column layout
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+// Absolute positioning shorthand
+@mixin absolute-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+// Border animation elements pattern
+@mixin border-animation-element {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+}
+
+// Glass morphism effect
+@mixin glass-effect {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* ============================================================================
+   BASE & RESET
+   ============================================================================ */
+
 :root {
     font-size: 16px;
-    padding: 0;
     padding: 0;
     margin: 0;
 }
@@ -99,14 +183,20 @@ body {
     padding: 0;
 }
 
-.accent {
-    color: rgb(239, 38, 38);
-}
+body {
+    overflow: clip;
+    background: $background-color;
+    color: $text-white;
 
-.glass {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(10px);
+    // Dotted background pattern
+    --dot-bg: black;
+    --dot-color: rgb(0, 0, 0);
+    --dot-size: 1px;
+    --dot-space: 22px;
+    background:
+        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        var(--dot-color);
 }
 
 button {
@@ -117,28 +207,29 @@ button:focus {
     outline: revert;
 }
 
-body {
-    overflow: clip;
-    background: #1a1a1a;
-    color: #fff;
 
-    --dot-bg: black;
-    --dot-color: rgb(0, 0, 0);
-    --dot-size: 1px;
-    --dot-space: 22px;
-    background:
-        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-        var(--dot-color);
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
 
+.accent {
+    color: $accent-red;
 }
+
+.glass {
+    @include glass-effect;
+}
+
+
+/* ============================================================================
+   HEADER / MENU
+   ============================================================================ */
 
 menu {
     position: fixed;
     display: flex;
-    flex: column;
+    flex-direction: row;
     z-index: 100;
-
     justify-content: space-between;
     width: 100%;
     font-family: "space mono", monospace;
@@ -146,8 +237,8 @@ menu {
     overflow: visible;
 
     h1 {
-        margin: 0%;
-        padding: 0px 2%;
+        margin: 0;
+        padding: 0 $spacing-sm;
 
         * {
             overflow: visible;
@@ -156,28 +247,27 @@ menu {
 
     .links {
         display: flex;
-        flex: column;
-        justify-content: space-between;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         width: 100%;
         text-transform: uppercase;
 
-
         button {
-            margin: 2% 5%;
-            letter-spacing: 0.1em;
+            margin: $spacing-sm $spacing-md;
+            letter-spacing: 0.5rem;
             white-space: nowrap;
             font-family: "KHInterferenceTRIAL";
             font-weight: 300;
-            letter-spacing: 0.5rem;
             cursor: pointer;
         }
     }
 }
 
 
-
+/* ============================================================================
+   GLOBE COMPONENT
+   ============================================================================ */
 
 .Globe {
     position: relative;
@@ -185,721 +275,656 @@ menu {
     height: 100%;
 
     canvas {
-        // display: none !important;
-        // this is temporary        
         width: 100px;
         height: 100px;
         z-index: 100;
     }
-
 }
 
 
+/* ============================================================================
+   HERO SECTION
+   ============================================================================ */
 
 .Hero {
     position: relative;
     flex: row;
     inset: 0;
-    // min-height: 100vh;
     width: 100%;
     height: 120vh;
     overflow: hidden;
     scroll-snap-align: start;
+}
 
-    .hero-content {
-        position: absolute;
-        display: inline-block;
-        z-index: 2;
-        margin: 0 auto;
-        padding: 15% 5%;
+.hero-content {
+    position: absolute;
+    display: inline-block;
+    z-index: 2;
+    margin: 0 auto;
+    padding: $spacing-xl $spacing-md;
 
-        p {
-            font-family: "Antonio", sans-serif;
-            font-weight: 400;
-            font-size: 6rem;
-            margin: 0;
-            color: #ffffff;
+    p {
+        font-family: "Antonio", sans-serif;
+        font-weight: 400;
+        font-size: 6rem;
+        margin: 0;
+        color: $text-white;
 
-            span {
-                font-family: "LCD14";
-                color: rgb(128, 28, 28);
-            }
+        span {
+            font-family: "LCD14";
+            color: $dark-red;
         }
+    }
 
-        h1 {
-            font-family: "Anton", sans-serif;
-            font-weight: 500;
+    h1 {
+        font-family: "Anton", sans-serif;
+        font-weight: 500;
+        line-height: 1.05;
+        font-size: 16rem;
+        margin: 0;
+        color: $text-white;
+
+        span {
             line-height: 1.05;
-            font-size: 16rem;
-            margin: 0;
-            color: rgba(255, 255, 255, 1);
-            ;
-
-            span {
-                line-height: 1.05;
-            }
-
-            // backdrop-filter: invert(0.8) contrast(1.1);
         }
-
-
     }
 }
 
 
+/* ============================================================================
+   MAIN CONTAINER
+   ============================================================================ */
+
 .main {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
     overflow-x: clip;
     width: 100%;
-    height: 100svh;
+    height: $section-height;
 }
 
 
+/* ============================================================================
+   ABOUT SECTION
+   ============================================================================ */
+
 .about {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     width: 100%;
-    height: 100svh !important;
+    height: $section-height !important;
     margin: 0 auto;
     flex-shrink: 0;
     scroll-snap-align: center;
+}
 
-    .infoGrid {
-        position: absolute;
+// Info Grid Container
+.info-grid {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: $info-grid-height;
+    width: $info-grid-width;
+    margin: 0 auto;
+    font-family: "space mono", monospace;
+    border: none;
+}
+
+// Info Bar (sidebar with spinner and clock)
+.info-bar {
+    position: relative;
+    @include flex-column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: $sidebar-width;
+    z-index: 5;
+}
+
+.info-bar-item {
+    position: relative;
+    @include flex-column;
+    @include flex-center;
+    width: 100%;
+    height: 20%;
+    margin: 0 auto;
+
+    h1 {
+        position: relative;
+        font-family: "KHInterferenceTRIAL";
+        font-weight: 300;
+        font-size: 1rem;
+        width: 200%;
+        text-align: center;
+        transform: rotate(90deg);
+        transform-origin: 50% center;
+        vertical-align: middle;
+    }
+}
+
+.spinner {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.clock {
+    position: relative;
+    font-family: "NuCoreCondensed", system-ui, sans-serif;
+    font-size: 3rem;
+    transform: rotate(90deg);
+    width: 200%;
+    letter-spacing: 0.5rem;
+    vertical-align: middle;
+}
+
+// Left Column (image and attributes)
+.info-grid-left {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    font-family: "space mono", monospace;
+    font-weight: 700;
+    height: 100%;
+    width: $column-width-sm;
+    z-index: 2;
+}
+
+.info-grid-content {
+    position: relative;
+    @include flex-column;
+    height: 100%;
+    width: 100%;
+}
+
+.profile-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+}
+
+.profile-links {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 25%;
+}
+
+// Attributes section
+.attributes {
+    position: relative;
+    @include flex-column;
+    font-size: 1.2rem;
+    width: 100%;
+    z-index: 100;
+}
+
+.attributes-header,
+.attributes-divider {
+    display: flex;
+    flex-direction: row;
+    font-size: 2rem;
+
+    >div {
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
-        height: 70%;
-        width: 80%;
-        margin: 0 auto;
-        font-family: "space mono", monospace;
-        border: none;
 
-
-        .infoBar {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
-            width: 5%;
-            z-index: 5;
-
-            #spinner {
-                animation: myAnimation 2s linear infinite;
-            }
-
-            @keyframes myAnimation {
-                0% {
-                    transform: rotate(0);
-                }
-
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-
-
-            div {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 20%;
-                margin: 0 auto;
-
-                h1 {
-                    font-family: "KHInterferenceTRIAL";
-                    font-weight: 300;
-                    position: relative;
-                    font-size: 1rem;
-                    width: 200%;
-                    transform-origin: 50% center;
-                    text-align: center;
-                    transform: rotate(90deg);
-                    vertical-align: middle;
-
-                }
-
-
-
-
-                #clock {
-                    position: relative;
-                    font-family: "NuCoreCondensed", system-ui, sans-serif;
-                    font-size: 3rem;
-                    transform: rotate(90deg);
-                    width: 200%;
-                    letter-spacing: 0.5rem;
-                    vertical-align: middle;
-                }
-
-
-            }
-
-        }
-
-        .left {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            overflow: hidden;
-            font-family: "space mono", monospace;
-            font-weight: 700;
-            height: 100%;
-            width: 35%;
-            z-index: 2;
-
-            .thing {
-                position: relative;
-                height: 100%;
-                width: 100%;
-                display: flex;
-                flex-flow: column;
-
-                .image {
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 6;
-                }
-
-                .links {
-                    position: relative;
-                    display: flex;
-                    flex-direction: row;
-                    height: 25%;
-                }
-
-            }
-
-            .attributes {
-                position: relative;
-                font-size: 1.2rem;
-                display: inline;
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                z-index: 100;
-
-                .header,
-                .divider {
-                    display: flex;
-                    flex-direction: row !important;
-                    font-size: 2rem;
-
-                    >div {
-                        display: flex !important;
-                        flex-direction: row !important;
-
-                        div {
-                            width: fit-content;
-                        }
-                    }
-
-                }
-
-                .field {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    padding: 0.5% 2%;
-
-                }
-
-                .scrambled {
-                    opacity: 0;
-                    display: inline;
-                    font-weight: 100;
-                    color: #ddd;
-                    text-align: right;
-                    background: $background-color;
-                }
-
-                .old {
-                    color: rgb(0, 0, 0);
-                    background: rgb(203, 32, 32);
-                }
-
-                .new {
-                    color: white;
-                }
-
-            }
-
-        }
-
-        .right {
-            position: relative;
-            height: 100%;
-            width: 35%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 2;
-
-            .map {
-                position: relative;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                overflow: clip;
-
-                svg {
-                    position: absolute;
-                    height: fit-content;
-                }
-            }
-
-            .lang {
-                height: 100%;
-                width: 100%;
-            }
-
-            .Technologies {
-                position: relative;
-                height: 100%;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                padding: 0px;
-
-
-                .Grid {
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-
-                    .row,
-                    .item {
-                        flex: 1;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100%;
-                        color: white;
-
-                    }
-
-                    .row:nth-child(1) {
-                        border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.2);
-                    }
-
-                    .row {
-                        .item {
-                            position: relative;
-                            display: flex;
-                            width: 100%;
-                            height: 100%;
-                            align-items: center;
-
-
-                            svg {
-                                position: relative;
-                                z-index: 5;
-                                filter: brightness(0) invert(1);
-                                transform: scale(2);
-                                flex: 1 1 0;
-                                min-width: 0;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-
-                            }
-
-
-                            span {
-                                position: relative;
-                                display: flex;
-                                flex-direction: column;
-                                height: 100%;
-                                letter-spacing: 2px;
-                                z-index: 2;
-                                font-family: "LCD14";
-                                font-size: 1rem;
-                                color: rgb(80, 80, 80);
-                                flex: 1 1 0;
-                                z-index: 5;
-                                min-width: 0;
-                            }
-
-                            p {
-                                position: relative;
-                                display: flex;
-                                height: 100%;
-                                flex-direction: column-reverse;
-                                align-items: center;
-                                letter-spacing: 0.25em;
-                                font-size: 0.5rem;
-                                z-index: 5;
-                                text-transform: uppercase;
-                                font-weight: 500;
-                                font-family: "Antonio", sans-serif;
-                                color: rgb(80, 80, 80);
-                                flex: 1 1 0;
-                                min-width: 0;
-                                direction: rtl;
-                                float: right;
-                            }
-                        }
-
-                        // .item:hover svg {
-                        //     filter: brightness(0) saturate(100%);
-                        // }
-
-
-                    }
-
-                    .highlight {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        background-color: #fff;
-                        pointer-events: none;
-                        transition: all 0.2s ease;
-                        z-index: 4;
-                    }
-
-                }
-
-                // @media (max-width: 900px) {
-                //     height: 100%;
-                //     padding: 25vh 0;
-
-                // }
-            }
+        div {
+            width: fit-content;
         }
     }
 }
 
+.attribute-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5% $spacing-sm;
+}
+
+.scrambled {
+    opacity: 0;
+    display: inline;
+    font-weight: 100;
+    color: $text-gray;
+    text-align: right;
+    background: $background-color;
+}
+
+.old {
+    color: rgb(0, 0, 0);
+    background: $blood-red;
+}
+
+.new {
+    color: $text-white;
+}
+
+// Right Column (map and technologies)
+.info-grid-right {
+    position: relative;
+    @include flex-column;
+    align-items: center;
+    height: 100%;
+    width: $column-width-sm;
+    z-index: 2;
+}
+
+.map-container {
+    position: relative;
+    @include flex-center;
+    width: 100%;
+    height: 100%;
+    overflow: clip;
+
+    svg {
+        position: absolute;
+        height: fit-content;
+    }
+}
+
+.lang {
+    height: 100%;
+    width: 100%;
+}
+
+// Technologies Grid
+.technologies-section {
+    position: relative;
+    @include flex-center;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.technologies-grid {
+    position: relative;
+    @include flex-column;
+    width: 100%;
+    height: 100%;
+}
+
+.tech-row {
+    flex: 1;
+    @include flex-center;
+    height: 100%;
+    color: $text-white;
+}
+
+.tech-row:nth-child(1) {
+    border-bottom: 1px solid $border-subtle;
+}
+
+.tech-item {
+    position: relative;
+    @include flex-center;
+    flex: 1 1 0;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+
+    svg {
+        position: relative;
+        z-index: 5;
+        flex: 1 1 0;
+        min-width: 0;
+        filter: brightness(0) invert(1);
+        transform: scale(2);
+    }
+
+    span {
+        position: relative;
+        @include flex-column;
+        flex: 1 1 0;
+        height: 100%;
+        min-width: 0;
+        z-index: 5;
+        font-family: "LCD14";
+        font-size: 1rem;
+        letter-spacing: 2px;
+        color: $text-muted;
+    }
+
+    p {
+        position: relative;
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column-reverse;
+        align-items: center;
+        height: 100%;
+        min-width: 0;
+        z-index: 5;
+        font-family: "Antonio", sans-serif;
+        font-size: 0.5rem;
+        font-weight: 500;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: $text-muted;
+        direction: rtl;
+        float: right;
+    }
+}
+
+.tech-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $bg-highlight;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 4;
+}
+
+
+/* ============================================================================
+   LINK BUTTON COMPONENT
+   ============================================================================ */
 
 .linkButton {
     position: relative;
-    font-family: "NuCoreCondensed";
-    letter-spacing: 0.5rem;
-    font-size: 1.6rem;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    z-index: 100;
     height: 100%;
-    margin-right: 5%;
+    margin-right: $spacing-md;
+    z-index: 100;
+    font-family: "NuCoreCondensed";
+    font-size: 1.6rem;
+    letter-spacing: 0.5rem;
     cursor: pointer;
-
-    .hn-arrow-container {
-        position: absolute;
-        right: 2%;
-        width: 2rem;
-        height: 2rem;
-        overflow: hidden;
-    }
-
-    div.hn-arrow-up {
-        position: absolute;
-        transform: rotate(45deg);
-        width: 2rem;
-        // No overflow hidden here - it's on the parent container
-    }
 }
+
+.hn-arrow-container {
+    position: absolute;
+    right: $spacing-sm;
+    width: 2rem;
+    height: 2rem;
+    overflow: hidden;
+}
+
+.hn-arrow-up {
+    position: absolute;
+    width: 2rem;
+    transform: rotate(45deg);
+}
+
+
+/* ============================================================================
+   WORK SECTION
+   ============================================================================ */
 
 .work {
     position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100svh;
+    height: $section-height;
     flex-shrink: 0;
     overflow: clip;
     border: solid 1px;
     z-index: 1;
     scroll-snap-align: start;
-
-    .video {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: clip;
-
-        canvas {
-            // display: none !important;
-            overflow: clip;
-            // this is temporary        
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-    }
-
-
-    .content {
-        justify-content: flex-end;
-        flex-direction: column;
-        position: absolute;
-        display: flex;
-        width: 45%;
-        z-index: 6;
-        left: 2%;
-        margin-top: 25%;
-        height: 50%;
-
-
-        h1 {
-            font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
-            font-weight: 700;
-            font-size: 3rem;
-            padding: 0;
-            margin: 0;
-
-        }
-
-        p {
-            padding: 0;
-            margin: 0;
-            font-family: "space mono", monospace;
-            font-weight: 200;
-            font-size: 1.2rem;
-        }
-
-        .footer {
-            position: relative;
-            display: flex;
-            height: 15%;
-            width: 100%;
-        }
-    }
-
-    .column {
-        height: 100%;
-        width: 12.5%;
-        height: 100vh;
-        z-index: 1;
-    }
-
-
-
-
-    .grid {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-        width: 100%;
-
-    }
-
-    .slide {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: red;
-        width: 0%;
-        z-index: 1;
-        overflow: clip;
-    }
-
-    .carousel {
-        position: absolute;
-        display: flex;
-        width: 62.5%;
-        left: 62.5%;
-        overflow: clip;
-
-        .switch {
-            position: relative;
-            opacity: 1;
-            width: 25%;
-            z-index: 10;
-            height: 100vh;
-
-            .background {
-                position: absolute;
-                background: red;
-                width: 100%;
-                height: 200%;
-                z-index: 0;
-            }
-
-            .columnContent {
-                justify-content: space-between;
-                flex-direction: column;
-                align-items: flex-end;
-                position: absolute;
-                display: flex;
-                height: 50%;
-                width: 100%;
-                top: 50%;
-
-
-                h1 {
-                    font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
-                    font-weight: 300;
-                    font-size: 1.5rem;
-                    text-align: right;
-                    z-index: 4;
-                    margin-right: 10%;
-                }
-
-                span {
-                    font-family: "NuCoreCondensed", system-ui, sans-serif;
-                    font-size: 3rem;
-                    z-index: 4;
-                    margin-right: 10%;
-                    margin-bottom: 10%;
-                }
-            }
-
-
-        }
-
-
-        .switch:nth-child(2) {
-            cursor: pointer;
-        }
-
-        .switch:nth-child(3) {
-            z-index: 2;
-            cursor: pointer;
-        }
-
-
-
-    }
-
-
 }
+
+.work-video {
+    @include absolute-full;
+    overflow: clip;
+
+    canvas {
+        width: 100%;
+        height: 100%;
+        overflow: clip;
+        z-index: 0;
+    }
+}
+
+.work-content {
+    position: absolute;
+    @include flex-column;
+    justify-content: flex-end;
+    width: 45%;
+    height: 50%;
+    left: $spacing-sm;
+    margin-top: $spacing-xxl;
+    z-index: 6;
+
+    h1 {
+        font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 3rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    p {
+        font-family: "space mono", monospace;
+        font-weight: 200;
+        font-size: 1.2rem;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.work-footer {
+    position: relative;
+    display: flex;
+    height: 15%;
+    width: 100%;
+}
+
+.work-column {
+    height: 100%;
+    width: $column-item-width;
+    height: 100vh;
+    z-index: 1;
+}
+
+.work-grid {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.work-slide {
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    background: red;
+    overflow: clip;
+    z-index: 1;
+}
+
+// Carousel
+.carousel {
+    position: absolute;
+    display: flex;
+    width: $carousel-width;
+    left: $carousel-width;
+    overflow: clip;
+}
+
+.carousel-switch {
+    position: relative;
+    width: 25%;
+    height: 100vh;
+    opacity: 1;
+    z-index: 10;
+}
+
+.carousel-switch:nth-child(2) {
+    cursor: pointer;
+}
+
+.carousel-switch:nth-child(3) {
+    cursor: pointer;
+    z-index: 2;
+}
+
+.carousel-background {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    background: red;
+    z-index: 0;
+}
+
+.carousel-content {
+    position: absolute;
+    @include flex-column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    height: 50%;
+    top: 50%;
+
+    h1 {
+        font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
+        font-weight: 300;
+        font-size: 1.5rem;
+        text-align: right;
+        margin-right: $spacing-lg;
+        z-index: 4;
+    }
+
+    span {
+        font-family: "NuCoreCondensed", system-ui, sans-serif;
+        font-size: 3rem;
+        margin-right: $spacing-lg;
+        margin-bottom: $spacing-lg;
+        z-index: 4;
+    }
+}
+
+
+/* ============================================================================
+   CONTACT SECTION
+   ============================================================================ */
 
 .contact {
     position: relative;
-    height: 100svh;
+    @include flex-center;
     width: 100%;
-    background: $background-color;
-    z-index: 2;
+    height: $section-height;
     margin: 0 auto;
-    display: flex;
+    background: $background-color;
     flex-shrink: 0;
-    align-items: center;
     scroll-snap-align: start;
+    z-index: 2;
+}
 
-    .content {
-        position: absolute;
-        display: flex;
-        flex-direction: row;
-        height: 70%;
-        width: 100%;
-        z-index: 10;
+.contact-content {
+    @include absolute-full;
+    display: flex;
+    flex-direction: row;
+    height: $info-grid-height;
+    z-index: 10;
+}
 
+.contact-form {
+    @include flex-column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 $spacing-md;
+    gap: 1rem;
 
-        form {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 0 5%;
-            justify-content: center;
-            gap: 1rem;
+    label {
+        font-family: "KHInterferenceTRIAL";
+        font-weight: 300;
+        font-size: 3rem;
+        display: inline;
+        margin-top: 1rem;
+    }
 
+    input,
+    textarea {
+        font-family: "KHInterferenceTRIAL";
+        font-weight: 300;
+        font-size: 2rem;
+        padding: 1rem;
+        background: $bg-glass;
+        border: 1px solid $border-subtle;
+        color: $text-white;
+        outline: none;
+        transition: border-color 0.3s ease;
 
-            label {
-                font-family: "KHInterferenceTRIAL";
-                font-weight: 300;
-                font-size: 3rem;
-                display: inline;
-                margin-top: 1rem;
-            }
+        &:focus {
+            border-color: $border-focus;
+        }
 
-            input,
-            textarea {
-                font-family: "KHInterferenceTRIAL";
-                font-weight: 300;
-                font-size: 2rem;
-                padding: 1rem;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: white;
-                outline: none;
-                transition: border-color 0.3s ease;
-
-                &:focus {
-                    border-color: rgba(255, 255, 255, 0.5);
-                }
-
-                &::placeholder {
-                    color: rgba(255, 255, 255, 0.3);
-                }
-            }
-
-            textarea {
-                resize: vertical;
-                min-height: 150px;
-            }
-
-            button[type="submit"] {
-                font-family: "NuCoreCondensed";
-                font-size: 1.5rem;
-                letter-spacing: 0.5rem;
-                padding: 1rem 2rem;
-                margin-top: 2rem;
-                background: white;
-                color: $background-color;
-                border: none;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                width: fit-content;
-                align-self: flex-end;
-
-                &:hover {
-                    background: rgba(255, 255, 255, 0.9);
-                    transform: translateY(-2px);
-                }
-
-                &:active {
-                    transform: translateY(0);
-                }
-            }
+        &::placeholder {
+            color: $placeholder-color;
         }
     }
 
+    textarea {
+        resize: vertical;
+        min-height: 150px;
+    }
 
+    button[type="submit"] {
+        align-self: flex-end;
+        width: fit-content;
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        font-family: "NuCoreCondensed";
+        font-size: 1.5rem;
+        letter-spacing: 0.5rem;
+        background: $text-white;
+        color: $background-color;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
 }
 
 
+/* ============================================================================
+   DITHER & PIXELATED IMAGE COMPONENTS
+   ============================================================================ */
+
 .dither-container {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    @include absolute-full;
     opacity: 0.4;
+    z-index: 1;
 }
 
 .pixelated-image-card {
-    color: var(--color-primary, #fff);
+    position: absolute;
     width: 100%;
     max-width: 100%;
-    position: absolute;
+    color: var(--color-primary, #fff);
     overflow: hidden;
 }
 
 .pixelated-image-card__default,
 .pixelated-image-card__active,
 .pixelated-image-card__pixels {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    @include absolute-full;
 }
 
 .pixelated-image-card__active {
@@ -907,29 +932,31 @@ menu {
 }
 
 .pixelated-image-card__pixels {
+    @include absolute-full;
     pointer-events: none;
     z-index: 3;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .pixelated-image-card__pixel {
-    display: none;
     position: absolute;
+    display: none;
 }
 
 .custom-pixel-card {
     max-width: 100%;
     overflow: hidden;
+
+    .pixelated-image-card__default,
+    .pixelated-image-card__active,
+    .pixelated-image-card__pixels {
+        border-radius: inherit;
+    }
 }
 
-.custom-pixel-card .pixelated-image-card__default,
-.custom-pixel-card .pixelated-image-card__active,
-.custom-pixel-card .pixelated-image-card__pixels {
-    border-radius: inherit;
-}
+
+/* ============================================================================
+   DISTORTION CONTAINER
+   ============================================================================ */
 
 .distortion-container {
     position: relative;
@@ -948,16 +975,20 @@ menu {
 }
 
 
+/* ============================================================================
+   SECTION HEADER COMPONENT
+   ============================================================================ */
+
 .sectionHeader {
     position: absolute;
-    font-family: "NuCoreCondensed";
-    font-weight: 400;
-    z-index: 90;
-    color: $background-color;
-    background-color: white;
-    padding: 2%;
-    letter-spacing: 1rem;
     width: fit-content;
     height: fit-content;
+    padding: $spacing-sm;
+    font-family: "NuCoreCondensed";
+    font-weight: 400;
     font-size: 2rem;
+    letter-spacing: 1rem;
+    color: $background-color;
+    background-color: $text-white;
+    z-index: 90;
 }

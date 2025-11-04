@@ -13,13 +13,13 @@ function InfoBar(props) {
     }, []);
 
     return (
-        <div className="infoBar" {...props}>
-            <div>
-                <span id={"clock"}>{time}</span>
+        <div className="info-bar" {...props}>
+            <div className="info-bar-item">
+                <span className="clock">{time}</span>
             </div>
             <BarCode id={"barcode"} />
-            <Spinner id={"spinner"} />
-            <div>
+            <Spinner className="spinner" />
+            <div className="info-bar-item">
                 <Role />
             </div>
             <CheckBoard id={"checkboard"} />

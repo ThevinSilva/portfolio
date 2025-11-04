@@ -15,15 +15,15 @@ function Contact() {
     };
 
     return (
-        <div className={"contact"}>
-            <div className="content">
+        <div className="contact">
+            <div className="contact-content">
                 <SectionHeader style={{ top: "0%" }}>
                     03 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>Contact
                 </SectionHeader>
                 <div className="Globe">
                     <Globe />
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form className="contact-form" onSubmit={handleSubmit}>
                     <label>Name:</label>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
                     <label>Email:</label>

@@ -205,7 +205,7 @@ export default function Experience({ src, saturation = 0.35, shadowStrength = 0.
     // IMPORTANT: No R3F hooks (like useFrame) are called here,
     // only inside children rendered within <Canvas/>.
     return (
-        <div className="video" style={{ width: "100%", height: "100%" }}>
+        <div className="work-video" style={{ width: "100%", height: "100%" }}>
             <Canvas camera={{ position: [0, 0, 0.5], fov: 80 }} dpr={[1, 2]}>
                 <AberrationVideoPlane src={src} saturation={saturation} shadowStrength={shadowStrength} shadowWidth={shadowWidth} brightness={brightness} warmth={warmth} />
                 <Environment preset="forest" />

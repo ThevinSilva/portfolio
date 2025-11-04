@@ -19,7 +19,7 @@ export default function About() {
         const highlight = highlightRef.current;
         if (!container || !highlight) return;
 
-        const gridItems = container.querySelectorAll(".item");
+        const gridItems = container.querySelectorAll(".tech-item");
 
         const moveToElement = (element) => {
             if (!element) return;
@@ -28,7 +28,7 @@ export default function About() {
             let y = 0;
             let currentElement = element;
 
-            while (currentElement && currentElement !== container.querySelector(".Grid")) {
+            while (currentElement && currentElement !== container.querySelector(".technologies-grid")) {
                 x += currentElement.offsetLeft;
                 y += currentElement.offsetTop;
                 currentElement = currentElement.offsetParent;
@@ -42,7 +42,7 @@ export default function About() {
 
         const moveHighlight = (e) => {
             const hovered = document.elementFromPoint(e.clientX, e.clientY);
-            const item = hovered.closest?.(".item");
+            const item = hovered.closest?.(".tech-item");
             if (item && container.contains(item)) moveToElement(item);
             // convert everything to white
             container.querySelectorAll("svg").forEach((element, index) => (element.style.filter = index == order ? "brightness(0) saturate(100%)" : "brightness(0) invert(1)"));
@@ -72,28 +72,28 @@ export default function About() {
     }, [order]);
 
     return (
-        <div ref={containerRef} className="Technologies">
-            <BorderAnimatedBox borders={{ top: true, right: false, bottom: false, left: false }} className="Grid">
-                <div className="row">
-                    <BorderAnimatedBox className="item" borders={{ top: false, left: false, bottom: true, right: false }} onClick={() => setOrder(0)}>
+        <div ref={containerRef} className="technologies-section">
+            <BorderAnimatedBox borders={{ top: true, right: false, bottom: false, left: false }} className="technologies-grid">
+                <div className="tech-row">
+                    <BorderAnimatedBox className="tech-item" borders={{ top: false, left: false, bottom: true, right: false }} onClick={() => setOrder(0)}>
                         <span>01</span>
                         <PythonPlain />
                         <p>/python</p>
                     </BorderAnimatedBox>
-                    <BorderAnimatedBox className="item" borders={{ top: false, left: true, bottom: true, right: false }} onClick={() => setOrder(1)}>
+                    <BorderAnimatedBox className="tech-item" borders={{ top: false, left: true, bottom: true, right: false }} onClick={() => setOrder(1)}>
                         <span>02</span>
                         <TypescriptPlain />
                         <p>/typescript</p>
                     </BorderAnimatedBox>
-                    <BorderAnimatedBox className="item" borders={{ top: false, left: true, bottom: true, right: false }} onClick={() => setOrder(2)}>
+                    <BorderAnimatedBox className="tech-item" borders={{ top: false, left: true, bottom: true, right: false }} onClick={() => setOrder(2)}>
                         <span>03</span>
                         <CsharpPlain />
                         <p>/C#</p>
                     </BorderAnimatedBox>
                 </div>
-                <div className="row">
+                <div className="tech-row">
                     {Object.keys(technologies[order]).map((key, index) => (
-                        <BorderAnimatedBox borders={{ top: false, left: index == 0 ? false : true, bottom: false, right: false }} className="item">
+                        <BorderAnimatedBox borders={{ top: false, left: index == 0 ? false : true, bottom: false, right: false }} className="tech-item">
                             <span>
                                 {order + 1}|{index + 1}
                             </span>
@@ -103,7 +103,7 @@ export default function About() {
                     ))}
                 </div>
 
-                <div ref={highlightRef} className="highlight" />
+                <div ref={highlightRef} className="tech-highlight" />
             </BorderAnimatedBox>
         </div>
     );

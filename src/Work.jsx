@@ -50,7 +50,7 @@ const Switch = ({ proj, index, setIncrement }) => {
 
     return (
         <div
-            className="switch"
+            className="carousel-switch"
             onClick={() => {
                 handleClick();
                 setIncrement((prev) => prev + index);
@@ -58,11 +58,11 @@ const Switch = ({ proj, index, setIncrement }) => {
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
         >
-            <div className="columnContent">
+            <div className="carousel-content">
                 <h1>{proj.name}</h1>
                 <span>0{proj.order}</span>
             </div>
-            <div ref={backgroundRef} className="background"></div>
+            <div ref={backgroundRef} className="carousel-background"></div>
         </div>
     );
 };
@@ -125,7 +125,7 @@ export default function Work() {
         () => {
             if (increment === 0 && previousIndex === 0) return;
 
-            const items = carouselRef.current.querySelectorAll(".switch");
+            const items = carouselRef.current.querySelectorAll(".carousel-switch");
             const currPos = increment % data.length;
             const prevPos = previousIndex % data.length;
             const step = (((currPos - prevPos) % data.length) + data.length) % data.length;
@@ -184,10 +184,10 @@ export default function Work() {
             <SectionHeader>
                 02 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>Work
             </SectionHeader>
-            <div className="content" ref={contentRef}>
+            <div className="work-content" ref={contentRef}>
                 <h1>{content.name}</h1>
                 <p>{content.description}</p>
-                <div className="footer">
+                <div className="work-footer">
                     <LinkButton style={{ width: "50%", height: "100%" }} borders={{ top: true, right: true, bottom: true, left: true }}>
                         demo
                     </LinkButton>
@@ -196,21 +196,21 @@ export default function Work() {
                     </LinkButton>
                 </div>
             </div>
-            <div ref={slideRef} className="slide"></div>
+            <div ref={slideRef} className="work-slide"></div>
             <div ref={carouselRef} className="carousel">
                 {visible.map((x, i) => (
                     <Switch key={x.order} proj={x} index={i} increment={increment} setIncrement={setIncrement} />
                 ))}
             </div>
-            <div className="grid">
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.1} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.2} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.3} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.4} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.5} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.6} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.7} />
-                <BorderAnimatedBox className="column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.8} />
+            <div className="work-grid">
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.1} />
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.2} />
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.3} />
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.4} />
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.5} />
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.6} />
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.7} />
+                <BorderAnimatedBox className="work-column" borders={{ top: false, right: true, bottom: false, left: false }} delay={0.8} />
             </div>
             <Experience
                 src={content.src}
