@@ -991,4 +991,100 @@ menu {
     color: $background-color;
     background-color: $text-white;
     z-index: 90;
+
+    span {
+        span {
+            font-size: 3rem !important;
+        }
+    }
+}
+
+
+/* ============================================================================
+   MEDIA QUERIES - RESPONSIVE DESIGN
+   ============================================================================ */
+
+// Tablet and Mobile - Work Section Responsive
+@media (max-width: $breakpoint-tablet) {
+
+    // Section Header - Reduce size dramatically
+    .sectionHeader {
+        font-size: 0.5rem;
+        letter-spacing: 0.3rem;
+        padding: 1%;
+
+        span {
+            span {
+                font-size: 1rem !important;
+            }
+        }
+    }
+
+    // Work Section Content (left side)
+    .work-content {
+        width: 75%;
+        left: $spacing-xs;
+        margin-top: 80%;
+
+        h1 {
+            font-size: 1.2rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+    }
+
+    // Work Footer Buttons
+    .work-footer {
+        height: 12%;
+    }
+
+    .linkButton {
+        letter-spacing: 0.3rem;
+
+        div {
+            margin: 0 !important;
+            font-size: 1rem;
+        }
+
+        .hn-arrow-container {
+            position: absolute;
+            top: 40%;
+            width: 2rem;
+            height: 2rem;
+            overflow: clip;
+
+            * {
+                font-size: 1.5rem !important;
+            }
+        }
+    }
+
+
+    .carousel-content {
+        height: 60%;
+        top: 40%;
+
+        // Project name - ROTATE 90 DEGREES
+        h1 {
+            font-size: 1.2rem;
+            margin-right: 0;
+            margin-bottom: 5%;
+            transform: rotate(180deg);
+            transform-origin: center center;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        // Order number - Keep horizontal but reduce size
+        span {
+            font-size: 1.5rem;
+            margin-right: 5%;
+            margin-bottom: 5%;
+        }
+    }
 }

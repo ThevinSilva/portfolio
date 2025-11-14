@@ -18,7 +18,7 @@ function Contact() {
         <div className="contact">
             <div className="contact-content">
                 <SectionHeader style={{ top: "0%" }}>
-                    03 <span style={{ fontFamily: "KHInterferenceTRIAL", fontSize: "3rem", fontWeight: 400 }}>//</span>Contact
+                    03 <span style={{ fontFamily: "KHInterferenceTRIAL", fontWeight: 400 }}>//</span>Contact
                 </SectionHeader>
                 <div className="Globe">
                     <Globe />
