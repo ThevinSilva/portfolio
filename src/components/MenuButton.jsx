@@ -3,7 +3,7 @@ import TextShuffleAnimation from "./TextShuffleAnimation";
 import { useRef, useState } from "react";
 import gsap from "gsap";
 
-export default function MenuButton({ text, className }) {
+export default function MenuButton({ text, className, clickHandler = null }) {
     const rootRef = useRef(null);
     const leftBracketRef = useRef(null);
     const rightBracketRef = useRef(null);
@@ -33,11 +33,13 @@ export default function MenuButton({ text, className }) {
 
     const handleClick = (event) => {
         event.preventDefault();
-        document.querySelector(className).scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+
+        let section = document.querySelector(className);
+        section.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     };
 
     return (
-        <button ref={rootRef} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onClick={handleClick}>
+        <button ref={rootRef} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onClick={clickHandler || handleClick}>
             <span style={{ display: "inline-block" }} ref={leftBracketRef}>
                 [
             </span>

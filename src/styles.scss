@@ -253,6 +253,8 @@ menu {
         width: 100%;
         text-transform: uppercase;
 
+
+
         button {
             margin: $spacing-sm $spacing-md;
             letter-spacing: 0.5rem;
@@ -261,8 +263,14 @@ menu {
             font-weight: 300;
             cursor: pointer;
         }
+
+        button:last-child {
+            display: none;
+        }
     }
 }
+
+
 
 
 /* ============================================================================
@@ -339,7 +347,7 @@ menu {
     position: relative;
     @include flex-column;
     scroll-snap-type: y mandatory;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: clip;
     width: 100%;
     height: $section-height;
@@ -428,6 +436,10 @@ menu {
     vertical-align: middle;
 }
 
+#barcode {
+    transform: scale(0.7);
+}
+
 // Left Column (image and attributes)
 .info-grid-left {
     position: relative;
@@ -439,6 +451,7 @@ menu {
     height: 100%;
     width: $column-width-sm;
     z-index: 2;
+    // background: $background-color;
 }
 
 .info-grid-content {
@@ -466,7 +479,7 @@ menu {
 .attributes {
     position: relative;
     @include flex-column;
-    font-size: 1.2rem;
+    font-size: 1rem;
     width: 100%;
     z-index: 100;
 }
@@ -999,39 +1012,247 @@ menu {
     }
 }
 
+.menu-wrap {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 900;
+    background-color: $background-color;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "KHInterferenceTRIAL";
+}
+
+.menu__item {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 -1px #fff;
+}
+
+.menu__item-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+    color: #fff;
+    font-size: 4vh;
+}
+
+.menu__item-link:hover {
+    color: #060010;
+}
+
+.menu__item-link:focus:not(:focus-visible) {
+    color: #fff;
+}
+
+.marquee {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: #fff;
+    transform: translate3d(0, 101%, 0);
+    transition: transform 0.6s ease-expo;
+}
+
+.marquee__inner-wrap {
+    height: 100%;
+    width: 200%;
+    display: flex;
+    transform: translateX(0);
+}
+
+.marquee__inner {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 200%;
+    will-change: transform;
+    animation: marquee 15s linear infinite;
+}
+
+.marquee span {
+    color: #060010;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 4vh;
+    line-height: 1.2;
+    padding: 1vh 1vw 0;
+}
+
+.marquee__img {
+    width: 200px;
+    height: 7vh;
+    margin: 2em 2vw;
+    padding: 1em 0;
+}
+
+.menu__item-link:hover+.marquee {
+    transform: translate3d(0, 0%, 0);
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 
 /* ============================================================================
    MEDIA QUERIES - RESPONSIVE DESIGN
    ============================================================================ */
 
-// Tablet and Mobile - Work Section Responsive
-@media (max-width: $breakpoint-tablet) {
+@media (max-width: 1600px) {
+    .attributes {
+        font-size: 0.8rem;
+    }
 
-    // Section Header - Reduce size dramatically
+    .info-grid {
+        height: 60% !important;
+    }
+
     .sectionHeader {
-        font-size: 0.5rem;
-        letter-spacing: 0.3rem;
+        font-size: 2rem;
+        letter-spacing: 0.5rem;
         padding: 1%;
 
         span {
             span {
-                font-size: 1rem !important;
+                font-size: 3rem !important;
             }
         }
     }
 
+    .info-bar {
+        padding-left: 2%;
+
+        .clock {
+            font-size: 2rem;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-desktop) {
+
+    .attributes {
+        font-size: 0.8rem;
+    }
+
+    .attributes-header,
+    .attributes-divider {
+        font-size: 2rem;
+    }
+
+
+    .info-grid {
+        font-size: 2px !important;
+        height: 80% !important;
+    }
+
+    .info-grid-left {
+        width: 100%;
+    }
+
+    .info-grid-right {
+        display: none;
+    }
+
+
+    .info-bar-item {
+        position: relative;
+        @include flex-column;
+        @include flex-center;
+        width: 100%;
+        height: 20%;
+        margin: 0 auto;
+
+        h1 {
+            font-size: 0.7rem;
+            width: 400%;
+        }
+    }
+
+    // Section Header - Reduce size dramatically
+    .sectionHeader {
+        font-size: 1rem;
+        letter-spacing: 0.5rem;
+        padding: 1%;
+
+        span {
+            span {
+                font-size: 1.5rem !important;
+            }
+        }
+    }
+
+    .links {
+        justify-content: flex-end !important;
+        padding: 20px;
+
+        button {
+            display: none;
+        }
+
+        button:last-child {
+            display: block !important;
+        }
+    }
+
+    .work-content {
+        width: 55%;
+        left: $spacing-xs;
+        margin-top: 40%;
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+    }
+}
+
+// Tablet and Mobile - Work Section Responsive
+@media (max-width: $breakpoint-tablet) {
+
     // Work Section Content (left side)
     .work-content {
-        width: 75%;
-        left: $spacing-xs;
-        margin-top: 80%;
+        margin-top: 60%;
 
         h1 {
             font-size: 1.2rem;
         }
 
         p {
-            font-size: 1rem;
+            font-size: 0.6rem;
             line-height: 1.4;
         }
     }
@@ -1087,4 +1308,57 @@ menu {
             margin-bottom: 5%;
         }
     }
+}
+
+
+@media (max-width: $breakpoint-mobile) {
+    .attributes {
+        font-size: 0.6rem;
+    }
+
+    .attributes-header,
+    .attributes-divider {
+        font-size: 1rem;
+    }
+
+    .info-grid {
+        height: 60% !important;
+
+
+    }
+
+
+    .info-bar {
+        padding-left: 2%;
+
+        svg {
+            transform: scale(0.7);
+        }
+
+        #barcode {
+            transform: scale(0.5);
+        }
+
+        .clock {
+            font-size: 1.2rem;
+        }
+
+
+        .spinner {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0) scale(0.7);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(0.7);
+            }
+        }
+
+    }
+
+
 }

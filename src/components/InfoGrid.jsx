@@ -93,7 +93,7 @@ function InfoGrid() {
     return (
         <>
             <div className="info-grid">
-                <BorderAnimatedBox className="info-grid-left">
+                <BorderAnimatedBox className="info-grid-left glass">
                     <div className="info-grid-content">
                         <div className="profile-image">
                             <DynamicImage inView={isInView} />

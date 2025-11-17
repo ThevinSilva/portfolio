@@ -253,17 +253,9 @@ function AberrationVideoPlane({ src, saturation, shadowStrength, shadowWidth, br
     return (
         <>
             {/* Background plane - blurred and scaled to cover */}
-            <Plane position={[0, 0, -0.1]} scale={bgPlaneScale}>
+            <Plane position={[0, 0, -0.2]} scale={bgPlaneScale}>
                 <Suspense fallback={<meshStandardMaterial wireframe={false} />}>
-                    <ForwardShaderVideoMaterial
-                        src={src}
-                        saturation={saturation * 0.5}
-                        shadowStrength={0}
-                        shadowWidth={0}
-                        brightness={brightness * 0.6}
-                        warmth={warmth}
-                        blur={15}
-                    />
+                    <ForwardShaderVideoMaterial src={src} saturation={saturation * 0.5} shadowStrength={0} shadowWidth={0} brightness={brightness * 0.6} warmth={warmth} blur={0.9} />
                 </Suspense>
             </Plane>
 
@@ -285,7 +277,7 @@ export default function Experience({ src, saturation = 0.35, shadowStrength = 0.
     // only inside children rendered within <Canvas/>.
     return (
         <div className="work-video" style={{ width: "100%", height: "100%" }}>
-            <Canvas camera={{ position: [0, 0, 0.5], fov: 80 }} dpr={[1, 2]}>
+            <Canvas camera={{ position: [0, 0, 0.5], fov: 100 }} dpr={[1, 2]}>
                 <AberrationVideoPlane src={src} saturation={saturation} shadowStrength={shadowStrength} shadowWidth={shadowWidth} brightness={brightness} warmth={warmth} />
                 <Environment preset="forest" />
             </Canvas>
