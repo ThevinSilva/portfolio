@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { top: true, right: true, bottom: true, left: true }, delay = 0, ...props }) => {
+const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { top: true, right: true, bottom: true, left: true }, delay = 0, onClick = null, ...props }) => {
     const boxRef = useRef(null);
     const topRef = useRef(null);
     const rightRef = useRef(null);
@@ -96,6 +96,7 @@ const BorderAnimatedBox = ({ children, className = "", style = {}, borders = { t
                 ...style,
             }}
             {...props}
+            onClick={onClick}
         >
             {/* Top border */}
             {borders.top && (

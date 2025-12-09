@@ -830,12 +830,14 @@ menu {
 
 .contact {
     position: relative;
-    @include flex-center;
+    flex-direction: row;
     width: 100%;
     height: $section-height;
-    margin: 0 auto;
+    margin: 0 auto !important;
     background: $background-color;
     flex-shrink: 0;
+    align-items: center;
+    vertical-align: center;
     scroll-snap-align: start;
     z-index: 2;
 }
@@ -846,6 +848,13 @@ menu {
     flex-direction: row;
     height: $info-grid-height;
     z-index: 10;
+    margin: 0 auto;
+}
+
+.contact-socials {
+    display: flex;
+    width: 100%;
+    height: 100%
 }
 
 .contact-form {
@@ -853,7 +862,6 @@ menu {
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding: 0 $spacing-md;
     gap: 1rem;
 
     label {
@@ -890,29 +898,7 @@ menu {
         min-height: 150px;
     }
 
-    button[type="submit"] {
-        align-self: flex-end;
-        width: fit-content;
-        margin-top: 2rem;
-        padding: 1rem 2rem;
-        font-family: "NuCoreCondensed";
-        font-size: 1.5rem;
-        letter-spacing: 0.5rem;
-        background: $text-white;
-        color: $background-color;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
 
-        &:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-2px);
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
-    }
 }
 
 
@@ -1323,8 +1309,6 @@ menu {
 
     .info-grid {
         height: 60% !important;
-
-
     }
 
 

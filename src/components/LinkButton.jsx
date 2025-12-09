@@ -1,12 +1,11 @@
 import BorderAnimatedBox from "./BorderAnimation";
 import TextPopInAnimation from "./TextPopInAnimation";
-import TextBlinkReveal from "./TextBlinkReveal";
 
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import gsap from "gsap";
 
-export default function LinkButton({ children, style, borders }) {
+export default function LinkButton({ children, style, borders, onClick = null }) {
     const arrowRef = useRef(null);
     const arrowTweenRef = useRef(null);
     const underlineTweenRef = useRef(null);
@@ -60,7 +59,7 @@ export default function LinkButton({ children, style, borders }) {
     });
 
     return (
-        <BorderAnimatedBox className="linkButton" style={style} onMouseEnter={handleEnter} onMouseLeave={handleLeave} borders={borders}>
+        <BorderAnimatedBox className="linkButton" style={style} onMouseEnter={handleEnter} onMouseLeave={handleLeave} borders={borders} onClick={onClick}>
             <div style={{ marginLeft: "2rem", position: "relative" }}>
                 <TextPopInAnimation delay={0.4} ease={"power4.out"} duration={1}>
                     {children}

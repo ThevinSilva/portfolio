@@ -75,6 +75,16 @@ export default function Work() {
             description: `Simple landing page for indie record label. Built a 2D side-scrolling game featuring a Firebase-powered scoreboard to track and display global player rankings. Dynamic animations powered by Motion + React`,
             date: `2023`,
             src: "KaizenRecords.mp4",
+            links: [
+                {
+                    text: "code",
+                    href: "https://github.com/ThevinSilva/KaizenRecords",
+                },
+                {
+                    text: "demo",
+                    href: "https://www.kaizenrecords.co.uk/",
+                },
+            ],
         },
         {
             name: "SynTQ",
@@ -84,6 +94,12 @@ export default function Work() {
             Created PRs under branch policies, responded to senior code reviews, read pipeline logs/test reports, and re-ran/triaged failures.`,
             date: `2025`,
             src: "SynTQ.mp4",
+            links: [
+                {
+                    text: "company",
+                    href: "https://www.sciy.com/en.html",
+                },
+            ],
         },
         {
             name: "Log Horizon",
@@ -94,6 +110,16 @@ export default function Work() {
             `,
             date: `2020`,
             src: "LogHorizon.mp4",
+            links: [
+                {
+                    text: "code",
+                    href: "https://github.com/ThevinSilva/loghorizonClient",
+                },
+                {
+                    text: "demo",
+                    href: "https://loghorizon-client-171m0qzeb-thevinsilva.vercel.app/",
+                },
+            ],
         },
         {
             name: "BDSS",
@@ -101,7 +127,13 @@ export default function Work() {
             description: `Develop workshops and training sessions on various data science topics, ensuring content is engaging, informative, and relevant to the needs and interests of BDSS members.
             Designed Society Landing Page`,
             date: `2024`,
-            src: "KaizenRecords.mp4",
+            src: "",
+            links: [
+                {
+                    text: "workshops",
+                    href: "https://github.com/ThevinSilva/loghorizonClient",
+                },
+            ],
         },
         {
             name: "KennyS",
@@ -109,7 +141,13 @@ export default function Work() {
             description: `Built an Electron App that scrapes and trades in-game items using Google's Puppeteer Library written in TypeScript.
             Implemented CI/CD pipeline through a series of unit tests made to ensure quality when pushing new releases.`,
             date: `2022`,
-            src: "SynTQ.mp4",
+            src: "",
+            links: [
+                {
+                    text: "workshops",
+                    href: "https://github.com/ThevinSilva/loghorizonClient",
+                },
+            ],
         },
     ];
 
@@ -188,12 +226,18 @@ export default function Work() {
                 <h1>{content.name}</h1>
                 <p>{content.description}</p>
                 <div className="work-footer">
-                    <LinkButton style={{ width: "50%", height: "100%" }} borders={{ top: true, right: true, bottom: true, left: true }}>
-                        demo
-                    </LinkButton>
-                    <LinkButton style={{ width: "50%", height: "100%" }} borders={{ top: true, right: true, bottom: true, left: true }}>
-                        code
-                    </LinkButton>
+                    {content.links.map(({ href, text }) => (
+                        <LinkButton
+                            style={{ width: "50%", height: "100%" }}
+                            borders={{ top: true, right: true, bottom: true, left: true }}
+                            onClick={(event) => {
+                                event.preventDefault();
+                                window.location.href = href;
+                            }}
+                        >
+                            {text}
+                        </LinkButton>
+                    ))}
                 </div>
             </div>
             <div ref={slideRef} className="work-slide"></div>
