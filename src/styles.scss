@@ -220,6 +220,50 @@ button:focus {
     @include glass-effect;
 }
 
+/* ============================================================================
+   HEADER / MENU
+   ============================================================================ */
+
+.warning {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: $primary-color;
+    z-index: 100;
+
+    .info {
+        position: relative;
+        font-family: "space mono", monospace;
+
+        font-size: 1rem;
+
+        h1 {
+            font-family: "KHInterferenceTRIAL";
+            padding: 1% 0%;
+            background: $border-focus;
+            text-align: center;
+        }
+
+        p {}
+
+        span {
+            display: table;
+            margin: 2rem auto;
+            font-size: 1.5rem;
+
+            span {
+                display: inline;
+                font-size: 3rem;
+            }
+        }
+    }
+}
+
 
 /* ============================================================================
    HEADER / MENU

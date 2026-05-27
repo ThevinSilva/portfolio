@@ -4,6 +4,7 @@ import { useEffect } from "react";
 // components
 import Header from "./Header";
 // Sections
+import Warning from "./Warning";
 import Hero from "./Hero";
 import About from "./About";
 import Work from "./Work";
@@ -23,14 +24,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
     useEffect(() => {
-        const mainElement = document.querySelector('.main');
+        const mainElement = document.querySelector(".main");
 
         const handleScroll = () => {
             ScrollTrigger.refresh();
         };
 
         if (mainElement) {
-            mainElement.addEventListener('scroll', handleScroll);
+            mainElement.addEventListener("scroll", handleScroll);
         }
 
         // Initial refresh after mount
@@ -38,7 +39,7 @@ function App() {
 
         return () => {
             if (mainElement) {
-                mainElement.removeEventListener('scroll', handleScroll);
+                mainElement.removeEventListener("scroll", handleScroll);
             }
         };
     }, []);
@@ -46,6 +47,7 @@ function App() {
     return (
         <div className="main">
             <Header />
+            <Warning />
             <About />
             <Work />
             <Contact />
