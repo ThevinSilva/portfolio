@@ -61,7 +61,7 @@ function InfoGrid() {
                                 newClass: "new",
                             },
                         },
-                        "<"
+                        "<",
                     );
                 scrambleAnimation.add(tl, index * 0.1 + 1.2);
             });
@@ -74,7 +74,7 @@ function InfoGrid() {
                 });
             };
         },
-        { dependencies: [attributeRef], scope: attributeRef }
+        { dependencies: [attributeRef], scope: attributeRef },
     );
 
     const information = {
@@ -124,7 +124,7 @@ function InfoGrid() {
                 </BorderAnimatedBox>
                 <Infobar />
                 <BorderAnimatedBox className="info-grid-right glass">
-                    <LocationWorldMap />
+                    {/* <LocationWorldMap /> */}
                     <LangDistribution />
                     <TechnologyGrid />
                 </BorderAnimatedBox>

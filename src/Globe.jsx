@@ -401,7 +401,7 @@ gl_FragColor = vec4(color, opacity);
 
         const textData = [
             {
-                text: `${userLocation.city || "Unknown"}, ${userLocation.countryName || "Unknown"}`,
+                text: `${userLocation.city || "Unknown"}, ${userLocation.country || "Unknown"}`,
                 color: "#ff0000",
                 size: 100,
                 offset: 40,

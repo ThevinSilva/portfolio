@@ -221,7 +221,7 @@ button:focus {
 }
 
 /* ============================================================================
-   HEADER / MENU
+   Warning
    ============================================================================ */
 
 .warning {
@@ -592,10 +592,6 @@ menu {
     }
 }
 
-.lang {
-    height: 100%;
-    width: 100%;
-}
 
 // Technologies Grid
 .technologies-section {
@@ -683,6 +679,82 @@ menu {
     transition: all 0.2s ease;
     z-index: 4;
 }
+
+.languageDistribution {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    // // Firefox
+    // scrollbar-width: thin;
+    // scrollbar-color: rgba(255, 255, 255, 1) transparent;
+
+    // WebKit (Chrome, Safari, Edge)
+    &::-webkit-scrollbar {
+        width: 0.4rem;
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(255, 255, 255);
+    }
+
+    &:hover {
+        overflow-y: scroll;
+    }
+
+}
+
+.language {
+    position: relative;
+    display: inline;
+    width: 100%;
+    height: 20%;
+    margin: 0% 1%;
+
+
+    p {
+        font-family: "Monocraft";
+        font-weight: 100;
+        font-size: 1rem;
+        letter-spacing: 0.2rem;
+        padding-left: 5%;
+        margin: 2% 0%;
+    }
+
+    .content {
+        display: flex;
+        justify-content: space-around;
+
+        .bar {
+            width: 76%;
+            height: 1.2rem;
+            border: 0.1rem solid white;
+            padding: 0.3rem;
+            display: flex;
+            align-items: stretch;
+            gap: 0.3rem;
+        }
+
+        .amount {
+            display: inline;
+            font-size: 1.2rem;
+            font-family: "Monocraft";
+        }
+
+        .box {
+            background-color: #ffffff;
+            flex-grow: 1;
+        }
+    }
+
+
+}
+
 
 
 /* ============================================================================

@@ -1,7 +1,9 @@
 // get location data from https://ip-api.io/json
 export default async function getLocation() {
-    const res = await fetch(`https://ipwho.is/`);
-    return await res.json();
+    const res = await fetch(`https://ipapi.co/json/`);
+    let temp = await res.json();
+    console.log(temp);
+    return temp;
 }
 
 // Mock location API
