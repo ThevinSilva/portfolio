@@ -1,13 +1,24 @@
 import SectionHeader from "./components/SectionHeader";
 import LinkButton from "./components/LinkButton";
-import { useState } from "react";
+import { useEffect } from "react";
 import Globe from "./Globe";
+import "@hackernoon/pixel-icon-library/fonts/iconfont.css";
 
 function Contact() {
-    // const [name, setName] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [message, setMessage] = useState("");
+    useEffect(() => {
+        const cards = document.querySelectorAll(".card-cv, .card-instagram, .card-linkedin, .card-github, .card-gmail");
 
+        const handleMouseMove = (e) => {
+            cards.forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty("--x", `${e.clientX - rect.left}px`);
+                card.style.setProperty("--y", `${e.clientY - rect.top}px`);
+            });
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, []);
     return (
         <div className="contact">
             <div className="contact-content">
@@ -16,21 +27,114 @@ function Contact() {
                 </SectionHeader>
 
                 <div className="contact-socials ">
-                    <LinkButton style={{ width: "100%", height: "10%" }}>Instagram</LinkButton>
-                    <LinkButton style={{ width: "100%", height: "10%" }}>Youtube</LinkButton>
-                    <LinkButton style={{ width: "100%", height: "10%" }}>Twitch</LinkButton>
-                    <LinkButton style={{ width: "100%", height: "10%" }}>Github</LinkButton>
+                    <div
+                        className="card-cv"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            window.location.href = "./cv.pdf";
+                        }}
+                    >
+                        <div className="border-layer"></div>
+                        <div className="content-wrapper">
+                            <div className="content">
+                                <p>Learn more</p>
+                                <div className="hn-arrow-container">
+                                    <div className="hn hn-arrow-up"></div>
+                                </div>
+                                <div className="footer">
+                                    <i class="hn hn-paperclip"></i>
+                                    <span>View CV</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="card-instagram"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            window.location.href = "https://www.instagram.com/thevin.silva/";
+                        }}
+                    >
+                        <div className="border-layer"></div>
+                        <div className="content-wrapper">
+                            <div className="content">
+                                <p>Follow</p>
+                                <div className="hn-arrow-container">
+                                    <div className="hn hn-arrow-up"></div>
+                                </div>
+                                <div className="footer">
+                                    <i class="hn hn-instagram"></i>
+                                    <span>Instagram</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="card-linkedin"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            window.location.href = "https://www.linkedin.com/in/thevinsilva/";
+                        }}
+                    >
+                        <div className="border-layer"></div>
+                        <div className="content-wrapper">
+                            <div className="content">
+                                <p>Connect</p>
+                                <div className="hn-arrow-container">
+                                    <div className="hn hn-arrow-up"></div>
+                                </div>
+                                <div className="footer">
+                                    <i class="hn hn-linkedin"></i>
+                                    <span>LinkedIn</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="break"></div>
+                    <div
+                        className="card-github"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            window.location.href = "https://github.com/ThevinSilva";
+                        }}
+                    >
+                        <div className="border-layer"></div>
+                        <div className="content-wrapper">
+                            <div className="content">
+                                <p>Contribute</p>
+                                <div className="hn-arrow-container">
+                                    <div className="hn hn-arrow-up"></div>
+                                </div>
+                                <div className="footer">
+                                    <i class="hn hn-github"></i>
+                                    <span>Github</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="card-gmail"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            window.location.href = "mailto:thevin.silva@gmail.com";
+                        }}
+                    >
+                        <div className="border-layer"></div>
+                        <div className="content-wrapper">
+                            <div className="content">
+                                <p>Say Hi</p>
+                                <div className="hn-arrow-container">
+                                    <div className="hn hn-arrow-up"></div>
+                                </div>
+                                <div className="footer">
+                                    <i class="hn hn-google"></i>
+                                    <span>thevin.silva@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {/* <form className="contact-form">
 
-                    <label>Name:</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                    <label>Email:</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <label>Message:</label>
-                    <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={5} />
-                    <LinkButton style={{ width: "100%", height: "10%" }}>Send</LinkButton>
-                </form> */}
                 <div className="Globe">
                     <Globe />
                 </div>

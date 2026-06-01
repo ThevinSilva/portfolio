@@ -322,9 +322,9 @@ menu {
    ============================================================================ */
 
 .Globe {
-    position: relative;
+    position: absolute;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 
     canvas {
         width: 100px;
@@ -962,60 +962,157 @@ menu {
     @include absolute-full;
     display: flex;
     flex-direction: row;
-    height: $info-grid-height;
+    height: 80%;
     z-index: 10;
     margin: 0 auto;
 }
 
 .contact-socials {
+    padding-top: 10rem;
+    margin: 0 auto;
     display: flex;
-    width: 100%;
-    height: 100%
-}
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    width: 80%;
+    height: 50%;
+    gap: 0.5rem 1rem;
 
-.contact-form {
-    @include flex-column;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    gap: 1rem;
-
-    label {
-        font-family: "KHInterferenceTRIAL";
-        font-weight: 300;
-        font-size: 3rem;
-        display: inline;
-        margin-top: 1rem;
+    .card-cv,
+    .card-instagram,
+    .card-linkedin,
+    .card-github,
+    .card-gmail {
+        height: 100%;
+        flex-shrink: 1;
+        --x: -1000px;
+        --y: -1000px;
+        position: relative;
+        border-radius: 1rem;
     }
 
-    input,
-    textarea {
-        font-family: "KHInterferenceTRIAL";
-        font-weight: 300;
-        font-size: 2rem;
-        padding: 1rem;
-        background: $bg-glass;
-        border: 1px solid $border-subtle;
-        color: $text-white;
-        outline: none;
-        transition: border-color 0.3s ease;
+    .card-cv::before,
+    .card-instagram::before,
+    .card-linkedin::before,
+    .card-github::before,
+    .card-gmail::before {
+        content: '';
+        border-radius: 21px;
+        position: absolute;
+        pointer-events: none;
+        inset: 0;
+        z-index: 4;
+        background: radial-gradient(800px circle at var(--x) var(--y),
+                rgba(255, 255, 255, 0.05) 0%,
+                transparent 40%);
+    }
 
-        &:focus {
-            border-color: $border-focus;
+    .border-layer {
+        border-radius: 21px;
+        position: absolute;
+        pointer-events: none;
+        inset: 0;
+        z-index: 1;
+        background: radial-gradient(400px circle at var(--x) var(--y),
+                rgba(255, 255, 255, 0.3) 0%,
+                transparent 40%);
+    }
+
+    .content-wrapper {
+        display: flex;
+        position: relative;
+        background-color: rgba(12, 12, 12, 0.6);
+        border-radius: 19px;
+        margin: 1px;
+        height: calc(100% - 2px);
+        max-width: calc(100% - 2px);
+        z-index: 2;
+        overflow: hidden;
+        transition: background-color 500ms;
+
+        .hn-arrow-container {
+            position: absolute;
+            top: 1rem;
+            font-size: 2rem;
+        }
+    }
+
+    .card-cv:hover .content-wrapper,
+    .card-instagram:hover .content-wrapper,
+    .card-linkedin:hover .content-wrapper,
+    .card-github:hover .content-wrapper,
+    .card-gmail:hover .content-wrapper {
+        background-color: rgb(22, 22, 22);
+    }
+
+    .content {
+        width: 100%;
+
+        p {
+            font-family: "space mono", monospace;
+            font-size: 1rem;
+            width: 100%;
+            letter-spacing: 0.2rem;
+            margin-left: 2rem;
+
+
         }
 
-        &::placeholder {
-            color: $placeholder-color;
+        .footer {
+            position: absolute;
+            bottom: 1rem;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end; // ← add this
+            height: 5rem;
+            width: 80%;
+            margin: 1rem;
+            vertical-align: bottom;
+
+
+            span {
+                font-family: "KHInterferenceTRIAL", system-ui, sans-serif;
+                font-weight: 100;
+                width: 100%;
+                font-size: 2rem;
+                justify-content: flex-end;
+                display: inline-flex;
+                vertical-align: bottom;
+
+            }
+
+
+            i {
+                margin-left: 0.1rem;
+                font-size: 3rem;
+            }
         }
     }
 
-    textarea {
-        resize: vertical;
-        min-height: 150px;
+    .break {
+        flex-basis: 100%;
     }
 
+    .card-cv {
+        flex-grow: 2;
+    }
 
+    .card-instagram {
+        flex-grow: 1;
+    }
+
+    .card-linkedin {
+        flex-grow: 1;
+    }
+
+    .card-github {
+        flex-grow: 2;
+    }
+
+    .card-gmail {
+        flex-grow: 5;
+    }
 }
+
 
 
 /* ============================================================================
@@ -1340,6 +1437,25 @@ menu {
             line-height: 1.4;
         }
     }
+
+    .card-cv,
+    .card-instagram,
+    .card-linkedin,
+    .card-github,
+    .card-gmail {
+        flex-basis: 100%;
+        overflow: hidden;
+    }
+
+    .contact-socials {
+        overflow-y: scroll;
+        width: 90%;
+        height: 90%;
+    }
+
+    .contact-socials::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 // Tablet and Mobile - Work Section Responsive
@@ -1410,6 +1526,8 @@ menu {
             margin-bottom: 5%;
         }
     }
+
+
 }
 
 
@@ -1426,6 +1544,7 @@ menu {
     .info-grid {
         height: 60% !important;
     }
+
 
 
     .info-bar {

@@ -19,6 +19,7 @@ import Dither from "./Dither.jsx";
 function InfoGrid() {
     const attributeRef = useRef(null);
     const [isInView, setIsInView] = useState(false);
+    const [isAgeLive, setIsAgeLive] = useState(false);
 
     useGSAP(
         () => {
@@ -55,14 +56,15 @@ function InfoGrid() {
                         {
                             duration: 1,
                             ease: "none",
-                            scrambleText: {
-                                text: text,
-                                oldClass: "old",
-                                newClass: "new",
-                            },
+                            scrambleText: { text: text, oldClass: "old", newClass: "new" },
                         },
                         "<",
                     );
+
+                if (element.dataset.age) {
+                    tl.call(() => setIsAgeLive(true));
+                }
+
                 scrambleAnimation.add(tl, index * 0.1 + 1.2);
             });
 
@@ -115,8 +117,21 @@ function InfoGrid() {
                                 </TextTypeWriterAnimation>
                             )}
                             {information.fields.map(({ key, value }) => (
-                                <div className="attribute-field">
-                                    <span className="reveal accent">{key}: </span> {key == "Uptime" ? <Age /> : <span className="scrambled">{value}</span>}
+                                <div className="attribute-field" key={key}>
+                                    <span className="reveal accent">{key}: </span>{" "}
+                                    {key === "Uptime" ? (
+                                        isAgeLive ? (
+                                            <span key="age-live" className="new" style={{ background: "#1a1a1a", fontWeight: 100 }}>
+                                                <Age />
+                                            </span>
+                                        ) : (
+                                            <span key="age-static" className="scrambled" data-age="true">
+                                                <Age paused />
+                                            </span>
+                                        )
+                                    ) : (
+                                        <span className="scrambled">{value}</span>
+                                    )}
                                 </div>
                             ))}
                         </BorderAnimatedBox>
